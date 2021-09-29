@@ -1,0 +1,15 @@
+﻿@page "/CharacterNavOptions"
+@inject NavigationManager UriHelper
+
+<h3>Character Page</h3>
+<button @onclick=@ViewCharacterList>View Characters</button>
+@code {
+
+
+    void ViewCharacterList()
+    {
+        UriHelper.NavigateTo("/Character/FetchData");
+    }
+
+
+}  

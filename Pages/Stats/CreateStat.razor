@@ -1,0 +1,20 @@
+﻿@page "/Stat/Create"
+@inject NavigationManager UriHelper
+@inject IStatData statData
+
+<h3>Create</h3>
+<StatForm ButtonText="Create Stat" SelectedStat="@SelectedStat"
+      OnValidSubmit="@CreateNewStat" />
+@code {
+    StatModel SelectedStat = new StatModel();
+    async Task CreateNewStat()
+    {
+        CoreStatModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedStat);
+        int id = await statData.CreateStat(dbModel);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/Stat/FetchData");
+    }
+}

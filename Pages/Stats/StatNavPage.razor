@@ -1,0 +1,11 @@
+﻿@page "/StatNavOptions"
+@inject NavigationManager UriHelper
+
+<h3>Stat Page</h3>
+<button @onclick=@ViewStatList>View Stats</button>
+@code {
+    void ViewStatList()
+    {
+        UriHelper.NavigateTo("/Stat/FetchData");
+    }
+}  

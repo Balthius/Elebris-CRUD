@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Elebris.Systems\Elebris.Database.Manager\Elebris.Database.Manager.csproj" />
+  </ItemGroup>
+
+</Project>

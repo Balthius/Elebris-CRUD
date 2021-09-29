@@ -1,0 +1,72 @@
+﻿
+<h3>Form</h3>
+<EditForm Model="@SelectedCharacter" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary Model="@SelectedCharacter" />
+
+
+    <div class="form-group">
+        <label class="control-label">First Name</label>
+        <InputText @bind-Value="SelectedCharacter.FirstName" class="form-control" />
+        <ValidationMessage For="@(() => SelectedCharacter.FirstName)" class="text-danger" />
+
+    </div>
+    <div class="form-group">
+        <label class="control-label">Last Name</label>
+        <InputText @bind-Value="SelectedCharacter.LastName" class="form-control" />
+        <ValidationMessage For="@(() => SelectedCharacter.LastName)" class="text-danger" />
+
+    </div>
+    attributes
+    <div class="form-group">
+        <label class="control-label">Strength</label>
+        <InputNumber @bind-Value="SelectedCharacter.Strength" class="form-control" />
+        <ValidationMessage For="@(() => SelectedCharacter.Strength)" class="text-danger" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Constitution</label>
+        <InputNumber @bind-Value="SelectedCharacter.Constitution" class="form-control" />
+        <ValidationMessage For="@(() => SelectedCharacter.Constitution)" class="text-danger" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Agility</label>
+        <InputNumber @bind-Value="SelectedCharacter.Agility" class="form-control" />
+        <ValidationMessage For="@(() => SelectedCharacter.Agility)" class="text-danger" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Expertise</label>
+        <InputNumber @bind-Value="SelectedCharacter.Expertise" class="form-control" />
+        <ValidationMessage For="@(() => SelectedCharacter.Expertise)" class="text-danger" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Wisdom</label>
+        <InputNumber @bind-Value="SelectedCharacter.Wisdom" class="form-control" />
+        <ValidationMessage For="@(() => SelectedCharacter.Wisdom)" class="text-danger" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Intelligence</label>
+        <InputNumber @bind-Value="SelectedCharacter.Intelligence" class="form-control" />
+        <ValidationMessage For="@(() => SelectedCharacter.Intelligence)" class="text-danger" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Attributes: @SelectedCharacter.CalculateAttributeTotal / @CharacterConfig.DEFAULT_MAX_TOTAL_VALUE </label>
+        <ValidationMessage For="@(() => SelectedCharacter.ValidAttributeTotal)" class="text-danger" />
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+
+</EditForm>
+@code {
+    [Parameter] public CharacterModel SelectedCharacter { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+}
+
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-core/*@
+
+
+@*https://www.syncfusion.com/blogs/post/how-to-create-a-dynamic-form-builder-in-blazor.aspx*@

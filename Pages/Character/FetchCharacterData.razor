@@ -1,0 +1,72 @@
+﻿@page "/Character/FetchData"
+
+@inject ICharacterData charaData
+@inject IJSRuntime js
+<h3>Characters</h3>
+
+<small>Add as many characters as you wish.</small>
+<div class="form-group">
+    <a class="btn btn-success" href="character/create"><i class="oi oi-plus"></i> Create New</a>
+</div>
+<br>
+@if (characters == null)
+{
+    <text>Loading...</text>
+}
+else if (characters.Count == 0)
+{
+    <text>No Records Found.</text>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CharacterModel character in characters)
+            {
+                <tr>
+                    <td>@character.Id</td>
+                    <td>@character.FirstName</td>
+                    <td>@character.LastName</td>
+                    <td>
+                        <a class="btn btn-success" href="/Character/Edit/@character.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(character.Id))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+
+
+    private List<CharacterModel> characters { get; set; } = new List<CharacterModel>();
+    protected override async Task OnInitializedAsync()
+    {
+        List<CoreCharacterModel> dbModels = await charaData.GetAllCharacterModels();
+        foreach (var item in dbModels)
+        {
+            CharacterModel model = ElebrisBlazorUtilities.CovertFromDBModel(item);
+            characters.Add(model);
+
+        }
+    }
+    async Task Delete(int charaid)
+    {
+        var character = characters.First(x => x.Id == charaid);
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {character.FirstName}'s ({character.Id}) Record?"))
+        {
+
+            await charaData.DeleteCharacter(charaid);
+        }
+    }
+
+
+}

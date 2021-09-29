@@ -1,0 +1,33 @@
+﻿@page "/Character/Edit/{characterId:int}"
+@inject ICharacterData charaData
+@inject NavigationManager UriHelper
+<h3>Edit</h3>
+
+<CharacterForm ButtonText="Update" SelectedCharacter="SelectedCharacter"
+      OnValidSubmit="EditExistingCharacter" />
+
+
+@code {
+    [Parameter] public int characterId { get; set; }
+
+    CharacterModel SelectedCharacter = new CharacterModel();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        CoreCharacterModel model = await charaData.GetCharacterByID(characterId);
+
+        SelectedCharacter = ElebrisBlazorUtilities.CovertFromDBModel(model);
+    }
+    public async Task EditExistingCharacter()
+    {
+        CoreCharacterModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedCharacter);
+        int id = await charaData.UpdateCharacter(dbModel);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/Character/FetchData");
+    }
+}
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-core/*@

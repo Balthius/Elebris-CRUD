@@ -1,0 +1,53 @@
+﻿@page "/Stat/Edit/{statId:int}"
+@inject IStatData statData
+@inject NavigationManager UriHelper
+<h3>Edit</h3>
+
+<StatForm ButtonText="Edit Stat" SelectedStat="@SelectedStat"
+          OnValidSubmit="@EditExistingStat" />
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Group Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (StatGroupModel item in statgroups)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.GroupName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter] public int statId { get; set; }
+
+    StatModel SelectedStat = new StatModel();
+
+    private List<StatGroupModel> statgroups { get; set; } = new List<StatGroupModel>();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        statgroups = await statData.GetAllStatGroups();
+        CoreStatModel model = await statData.GetStatByID(statId);
+
+        SelectedStat = ElebrisBlazorUtilities.CovertFromDBModel(model);
+    }
+    public async Task EditExistingStat()
+    {
+        CoreStatModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedStat);
+        int id = await statData.UpdateStat(dbModel);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/Stat/FetchData");
+    }
+}
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-core/*@

@@ -1,0 +1,20 @@
+﻿@page "/Character/Create"
+@inject NavigationManager UriHelper
+@inject ICharacterData charaData
+
+<h3>Create</h3>
+<CharacterForm ButtonText="Create Character" SelectedCharacter="@SelectedCharacter"
+      OnValidSubmit="@CreateNewCharacter" />
+@code {
+    CharacterModel SelectedCharacter = new CharacterModel();
+    async Task CreateNewCharacter()
+    {
+        CoreCharacterModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedCharacter);
+        int id = await charaData.CreateCharacter(dbModel);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/Character/FetchData");
+    }
+}
