@@ -16,10 +16,17 @@
         <ValidationMessage For="@(() => SelectedStat.BeginningValue)" class="text-danger" />
     </div>
     <div class="form-group">
-    <label class="control-label">Stat Group</label>
-    <InputNumber @bind-Value="SelectedStat.StatGroup" class="form-control" />
-    <ValidationMessage For="@(() => SelectedStat.StatGroup)" class="text-danger" />
-</div>
+        <label class="control-label">Stat Group</label>
+        <div>
+            <InputSelect @bind-Value="SelectedStat.StatGroup" class="form-control">
+                <option value="Select">(Choose)</option>
+                @foreach (StatGroupModel group in AllStatGroups)
+                {
+                    <option value="@group.Id">@group.GroupName</option>
+                }
+            </InputSelect>
+        </div>
+    </div>
     
 
     <button type="submit" class="btn btn-success">
@@ -32,6 +39,7 @@
     [Parameter] public StatModel SelectedStat { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public List<StatGroupModel> AllStatGroups { get; set; }
 
 }
 

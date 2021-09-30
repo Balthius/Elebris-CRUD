@@ -1,0 +1,66 @@
+﻿
+<h3>Form</h3>
+<EditForm Model="@SelectedDerivedStat" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary Model="@SelectedDerivedStat" />
+
+    <div class="form-group">
+        <label class="control-label">DerivedStat Name</label>
+        <InputText @bind-Value="SelectedDerivedStat.Name" class="form-control" />
+        <ValidationMessage For="@(() => SelectedDerivedStat.Name)" class="text-danger" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Parent Id</label>
+      
+        <div>
+            <InputSelect @bind-Value="SelectedDerivedStat.ParentStatId" class="form-control">
+                <option value="Select">(Choose)</option>
+                @foreach (CoreStatModel stat in AllStats)
+                {
+                    <option value="@stat.Id">@stat.StatName</option>
+                }
+            </InputSelect>
+        </div>
+    </div>
+    @*https://www.youtube.com/watch?v=K-9_B-YSIxc*@
+    @*The parent and target need to have their Id's replaced with strings*@
+    <div class="form-group">
+        <label class="control-label">Target Id</label>
+        <div>
+            <InputSelect @bind-Value="SelectedDerivedStat.TargetStatId" class="form-control">
+                <option value="Select">(Choose)</option>
+                @foreach (CoreStatModel stat in AllStats)
+                {
+                    <option value="@stat.Id">@stat.StatName</option>
+                }
+
+            </InputSelect>
+        </div>
+       
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Scale From Parent</label>
+        <InputNumber @bind-Value="SelectedDerivedStat.ScaleFromParent" class="form-control" />
+        <ValidationMessage For="@(() => SelectedDerivedStat.ScaleFromParent)" class="text-danger" />
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+
+
+</EditForm>
+@code {
+    [Parameter] public DerivedStatUpdateModel SelectedDerivedStat { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public List<CoreStatModel> AllStats { get; set; }
+
+}
+
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-core/*@
+
+
+@*https://www.syncfusion.com/blogs/post/how-to-create-a-dynamic-form-builder-in-blazor.aspx*@

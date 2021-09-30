@@ -1,0 +1,34 @@
+﻿@page "/DerivedStat/Edit/{DerivedStatId:int}"
+@inject IStatData statData
+@inject NavigationManager UriHelper
+<h3>Edit</h3>
+
+<DerivedStatForm ButtonText="Edit DerivedStat" SelectedDerivedStat="@SelectedDerivedStat"
+          OnValidSubmit="@EditExistingDerivedStat" AllStats="@AllStats" />
+
+
+@code {
+    [Parameter] public int DerivedStatId { get; set; }
+
+    DerivedStatUpdateModel SelectedDerivedStat = new DerivedStatUpdateModel();
+    public List<CoreStatModel> AllStats { get; set; } = new List<CoreStatModel>();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        DerivedStatModel model = await statData.GetDerivedStatByID(DerivedStatId);
+        AllStats = await statData.GetAllStats();
+        SelectedDerivedStat = ElebrisBlazorUtilities.CovertFromDBModel(model);
+    }
+    public async Task EditExistingDerivedStat()
+    {
+        DerivedStatModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedDerivedStat);
+        int id = await statData.UpdateDerivedStat(dbModel);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/DerivedStat/FetchData");
+    }
+}
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-core/*@

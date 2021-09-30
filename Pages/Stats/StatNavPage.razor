@@ -3,9 +3,14 @@
 
 <h3>Stat Page</h3>
 <button @onclick=@ViewStatList>View Stats</button>
+<button @onclick=@ViewDerivedStatList>View Derived Stats</button>
 @code {
     void ViewStatList()
     {
         UriHelper.NavigateTo("/Stat/FetchData");
+    }
+    void ViewDerivedStatList()
+    {
+        UriHelper.NavigateTo("/DerivedStat/FetchData");
     }
 }  

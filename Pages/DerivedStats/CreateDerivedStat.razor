@@ -1,0 +1,26 @@
+﻿@page "/DerivedStat/Create"
+@inject NavigationManager UriHelper
+@inject IStatData statData
+
+<h3>Create</h3>
+<DerivedStatForm ButtonText="Create DerivedStat" SelectedDerivedStat="@SelectedDerivedStat"
+      OnValidSubmit="@CreateNewDerivedStat" AllStats="@AllStats" />
+@code {
+    DerivedStatUpdateModel SelectedDerivedStat = new DerivedStatUpdateModel();
+    public List<CoreStatModel> AllStats { get; set; } = new List<CoreStatModel>(); 
+    
+    protected async override Task OnParametersSetAsync()
+    {
+        AllStats = await statData.GetAllStats();
+    }
+    async Task CreateNewDerivedStat()
+    {
+        DerivedStatModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedDerivedStat);
+        int id = await statData.CreateDerivedStat(dbModel);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/DerivedStat/FetchData");
+    }
+}

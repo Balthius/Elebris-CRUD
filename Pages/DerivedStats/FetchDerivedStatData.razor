@@ -1,0 +1,87 @@
+﻿@page "/DerivedStat/FetchData"
+
+@inject IStatData statData
+@inject IJSRuntime js
+<h3>Derived Stats</h3>
+
+<small>Add as many derived stats as you wish.</small>
+<div class="form-group">
+    <a class="btn btn-success" href="Derivedstat/create"><i class="oi oi-plus"></i> Create New</a>
+</div>
+<br>
+@if (selectedDerivedStats == null)
+{
+    <text>Loading...</text>
+}
+else if (selectedDerivedStats.Count == 0)
+{
+    <text>No Records Found.</text>
+}
+else
+{
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>ParentStatId</td>
+                <td>TargetStatId</td>
+                <td>ScaleFromParent</td>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (DerivedStatUpdateModel item in selectedDerivedStats)
+            {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@ReturnStatName(@item.ParentStatId)</td>
+                <td>@ReturnStatName(@item.TargetStatId)</td>
+                <td>@item.ScaleFromParent</td>
+                <td>
+                    <a class="btn btn-success" href="/DerivedStat/Edit/@item.Id">Edit</a>
+                    <button class="btn btn-danger" @onclick="@(() => Delete(item.Id))">Delete</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    }
+@code {
+
+
+    private List<DerivedStatUpdateModel> selectedDerivedStats { get; set; } = new List<DerivedStatUpdateModel>();
+
+    public List<CoreStatModel> AllStats { get; set; } = new List<CoreStatModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        AllStats = await statData.GetAllStats();
+        List<DerivedStatModel> dbModels = await statData.GetAllDerivedStats();
+        foreach (var item in dbModels)
+        {
+            DerivedStatUpdateModel model = ElebrisBlazorUtilities.CovertFromDBModel(item);
+            selectedDerivedStats.Add(model);
+        }
+    }
+
+    async Task Delete(int statid)
+    {
+        var stat = selectedDerivedStats.First(x => x.Id == statid);
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {stat.Name}'s ({stat.Id}) Record?"))
+        {
+
+            await statData.DeleteDerivedStat(statid);
+        }
+    }
+
+    private string ReturnStatName(int id)
+    {
+        var stat = AllStats.FirstOrDefault(x => x.Id == id);
+        return stat.StatName;
+    }
+
+
+}

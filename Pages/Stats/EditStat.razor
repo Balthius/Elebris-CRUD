@@ -4,38 +4,20 @@
 <h3>Edit</h3>
 
 <StatForm ButtonText="Edit Stat" SelectedStat="@SelectedStat"
-          OnValidSubmit="@EditExistingStat" />
+          OnValidSubmit="@EditExistingStat" AllStatGroups="@AllStatGroups" />
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Group Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (StatGroupModel item in statgroups)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.GroupName</td>
-            </tr>
-        }
-    </tbody>
-</table>
 
 @code {
     [Parameter] public int statId { get; set; }
 
     StatModel SelectedStat = new StatModel();
 
-    private List<StatGroupModel> statgroups { get; set; } = new List<StatGroupModel>();
 
+    List<StatGroupModel> AllStatGroups = new List<StatGroupModel>();
     protected async override Task OnParametersSetAsync()
     {
-        statgroups = await statData.GetAllStatGroups();
         CoreStatModel model = await statData.GetStatByID(statId);
-
+        AllStatGroups = await statData.GetAllStatGroups();
         SelectedStat = ElebrisBlazorUtilities.CovertFromDBModel(model);
     }
     public async Task EditExistingStat()

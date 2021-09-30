@@ -4,12 +4,19 @@
 
 <h3>Create</h3>
 <StatForm ButtonText="Create Stat" SelectedStat="@SelectedStat"
-      OnValidSubmit="@CreateNewStat" />
+      OnValidSubmit="@CreateNewStat" AllStatGroups="@AllStatGroups" />
 @code {
     StatModel SelectedStat = new StatModel();
+    List<StatGroupModel> AllStatGroups = new List<StatGroupModel>();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        AllStatGroups = await statData.GetAllStatGroups();
+    }
     async Task CreateNewStat()
     {
         CoreStatModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedStat);
+
         int id = await statData.CreateStat(dbModel);
         NavigateToFetchData();
     }

@@ -1,5 +1,6 @@
 ﻿using Elebris.CRUD.Models;
 using Elebris.Database.Manager;
+using Elebris.Database.Manager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,17 @@ namespace Elebris.Utilities
 
             return appModel;
         }
+        public static DerivedStatUpdateModel CovertFromDBModel(DerivedStatModel dbModel)
+        {
+            DerivedStatUpdateModel model = new DerivedStatUpdateModel();
+            model.Id = dbModel.Id;
+            model.Name = dbModel.Name;
+            model.ParentStatId = dbModel.ParentStatId;
+            model.TargetStatId = dbModel.TargetStatId;
+            model.ScaleFromParent = dbModel.ScaleFromParent;
+
+            return model;
+        }
         public static StatModel CovertFromDBModel(CoreStatModel dbModel)
         {
             StatModel model = new StatModel();
@@ -34,7 +46,7 @@ namespace Elebris.Utilities
 
             return model;
         }
-       
+
         public static CoreCharacterModel CovertToDBModel(CharacterModel appModel)
         {
             CoreCharacterModel dbModel = new CoreCharacterModel();
@@ -59,6 +71,16 @@ namespace Elebris.Utilities
             model.BeginningValue = appModel.BeginningValue;
 
             model.StatGroup = appModel.StatGroup;
+            return model;
+        }
+        public static DerivedStatModel CovertToDBModel(DerivedStatUpdateModel appModel)
+        {
+            DerivedStatModel model = new DerivedStatModel();
+            model.Id = appModel.Id;
+            model.Name = appModel.Name;
+            model.ParentStatId = appModel.ParentStatId;
+            model.TargetStatId = appModel.TargetStatId;
+            model.ScaleFromParent = appModel.ScaleFromParent;
             return model;
         }
     }

@@ -47,7 +47,7 @@ else
                     <td>@item.Id</td>
                     <td>@item.StatName</td>
                     <td>@item.BeginningValue</td>
-                    <td>@item.StatGroup</td>
+                    <td>@ReturnStatGroupName(@item.StatGroup)</td>
                     <td>
                         <a class="btn btn-success" href="/Stat/Edit/@item.Id">Edit</a>
                         <button class="btn btn-danger" @onclick="@(() => Delete(item.Id))">Delete</button>
@@ -81,6 +81,7 @@ else
         if(string.IsNullOrWhiteSpace(e.Value.ToString()) == false)
         {
             selectedStats = new List<StatModel>();
+            //Need to catch "select"
             int id = int.Parse(e.Value.ToString());
             foreach (var item in allStats)
             {
@@ -101,5 +102,10 @@ else
         }
     }
 
+    private string ReturnStatGroupName(int id)
+    {
+        var stat = statgroups.FirstOrDefault(x => x.Id == id);
+        return stat.GroupName;
+    }
 
 }
