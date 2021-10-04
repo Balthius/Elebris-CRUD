@@ -46,6 +46,16 @@ namespace Elebris.Utilities
 
             return model;
         }
+        public static CharacterClassModel CovertFromDBModel(CoreCharacterClassModel dbModel)
+        {
+            CharacterClassModel model = new CharacterClassModel();
+            model.Id = dbModel.Id;
+            model.Name = dbModel.Name;
+            model.GoverningAttribute = dbModel.GoverningAttribute;
+            model.Description = dbModel.Description;
+
+            return model;
+        }
 
         public static CoreCharacterModel CovertToDBModel(CharacterModel appModel)
         {
@@ -81,6 +91,16 @@ namespace Elebris.Utilities
             model.ParentStatId = appModel.ParentStatId;
             model.TargetStatId = appModel.TargetStatId;
             model.ScaleFromParent = appModel.ScaleFromParent;
+            return model;
+        }
+        public static CoreCharacterClassModel CovertToDBModel(CharacterClassModel appModel)
+        {
+            CoreCharacterClassModel model = new CoreCharacterClassModel();
+            model.Id = appModel.Id;
+            model.Name = appModel.Name;
+            model.GoverningAttribute = appModel.GoverningAttribute;
+            model.Description = appModel.Description;
+
             return model;
         }
     }

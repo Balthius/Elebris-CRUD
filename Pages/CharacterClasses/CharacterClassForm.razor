@@ -1,0 +1,41 @@
+﻿
+<h3>Form</h3>
+<EditForm Model="@SelectedClass" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary Model="@SelectedClass" />
+
+    <div class="form-group">
+        <label class="control-label">Name</label>
+        <InputText @bind-Value="SelectedClass.Name" class="form-control" />
+        <ValidationMessage For="@(() => SelectedClass.Name)" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Governing Attribute</label>
+        <InputNumber @bind-Value="SelectedClass.GoverningAttribute" class="form-control" />
+        <ValidationMessage For="@(() => SelectedClass.GoverningAttribute)" class="text-danger" />
+    </div>
+   
+    <div class="form-group">
+        <label class="control-label">Description</label>
+        <InputText @bind-Value="SelectedClass.Description" class="form-control" />
+        <ValidationMessage For="@(() => SelectedClass.Description)" class="text-danger" />
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+</EditForm>
+@code {
+    [Parameter] public CharacterClassModel SelectedClass { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public List<StatModel> Attributes { get; set; }
+
+}
+
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-core/*@
+
+
+@*https://www.syncfusion.com/blogs/post/how-to-create-a-dynamic-form-builder-in-blazor.aspx*@

@@ -11,10 +11,9 @@
     </div>
     <div class="form-group">
         <label class="control-label">Parent Id</label>
-      
         <div>
             <InputSelect @bind-Value="SelectedDerivedStat.ParentStatId" class="form-control">
-                <option value="Select">(Choose)</option>
+                <option value="">(Choose)</option>
                 @foreach (CoreStatModel stat in AllStats)
                 {
                     <option value="@stat.Id">@stat.StatName</option>
@@ -22,13 +21,12 @@
             </InputSelect>
         </div>
     </div>
-    @*https://www.youtube.com/watch?v=K-9_B-YSIxc*@
     @*The parent and target need to have their Id's replaced with strings*@
     <div class="form-group">
         <label class="control-label">Target Id</label>
         <div>
             <InputSelect @bind-Value="SelectedDerivedStat.TargetStatId" class="form-control">
-                <option value="Select">(Choose)</option>
+                <option value="">(Choose)</option>
                 @foreach (CoreStatModel stat in AllStats)
                 {
                     <option value="@stat.Id">@stat.StatName</option>

@@ -22,7 +22,7 @@ else
 <div class="form-group">
     <label class="control-label">Stat Group</label>
     <select class="form-control" @onchange="@StatGroupChanged" title="Stat Group">
-        <option value="Select">(Choose Group)</option>
+        <option value="">(Choose Group)</option>
         @foreach (var group in statgroups)
         {
             <option value="@group.Id">@group.Id @group.GroupName</option>
@@ -104,8 +104,16 @@ else
 
     private string ReturnStatGroupName(int id)
     {
-        var stat = statgroups.FirstOrDefault(x => x.Id == id);
-        return stat.GroupName;
+        if(id > 0)
+        {
+            var stat = statgroups.FirstOrDefault(x => x.Id == id);
+            return stat.GroupName;
+        }
+        else
+        {
+            return "Not Set";
+        }
+
     }
 
 }

@@ -37,6 +37,7 @@ namespace Elebris.CRUD
             services.AddSingleton<ICharacterData, CharacterData>();
             services.AddSingleton<IStatData, StatData>();
             services.AddSingleton<IUserData, UserData>();
+            services.AddSingleton<ICharacterClassData, CharacterClassData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,34 @@
+﻿@page "/CharacterClass/Create"
+@inject NavigationManager UriHelper
+@inject ICharacterClassData charaClassData
+@inject IStatData statData
+
+<h3>Create</h3>
+<CharacterClassForm ButtonText="Create Character Class" SelectedClass="@SelectedClass"
+               OnValidSubmit="@CreateNewCharacter" />
+@code {
+    CharacterClassModel SelectedClass = new CharacterClassModel();
+    List<StatModel> AttributeStats = new List<StatModel>();
+    protected async override Task OnParametersSetAsync()
+    {
+        var stats = await statData.GetAllStats();
+        foreach (var item in stats)
+        {
+            if(item.Id == 1002)
+            {
+                StatModel model = ElebrisBlazorUtilities.CovertFromDBModel(item);
+                AttributeStats.Add(model);
+            }
+        }
+    }
+    async Task CreateNewCharacter()
+    {
+        CoreCharacterClassModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedClass);
+        int id = await charaClassData.CreateCharacterClass(dbModel);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/CharacterClass/FetchData");
+    }
+}
