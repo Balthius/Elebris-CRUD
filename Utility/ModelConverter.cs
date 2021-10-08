@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Elebris.Utilities
 {
-    public static class ElebrisBlazorUtilities
+    public static class ModelConverter
     {
         public static CharacterModel CovertFromDBModel(CoreCharacterModel dbModel)
         {

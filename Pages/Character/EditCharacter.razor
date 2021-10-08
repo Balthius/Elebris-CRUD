@@ -16,11 +16,11 @@
     {
         CoreCharacterModel model = await charaData.GetCharacterByID(characterId);
 
-        SelectedCharacter = ElebrisBlazorUtilities.CovertFromDBModel(model);
+        SelectedCharacter = ModelConverter.CovertFromDBModel(model);
     }
     public async Task EditExistingCharacter()
     {
-        CoreCharacterModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedCharacter);
+        CoreCharacterModel dbModel = ModelConverter.CovertToDBModel(SelectedCharacter);
         int id = await charaData.UpdateCharacter(dbModel);
         NavigateToFetchData();
     }

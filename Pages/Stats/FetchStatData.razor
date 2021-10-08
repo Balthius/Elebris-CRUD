@@ -69,7 +69,7 @@ else
         List<CoreStatModel> dbModels = await statData.GetAllStats();
         foreach (var item in dbModels)
         {
-            StatModel model = ElebrisBlazorUtilities.CovertFromDBModel(item);
+            StatModel model = ModelConverter.CovertFromDBModel(item);
             allStats.Add(model);
             selectedStats.Add(model);
         }

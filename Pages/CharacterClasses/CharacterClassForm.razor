@@ -12,8 +12,15 @@
 
     <div class="form-group">
         <label class="control-label">Governing Attribute</label>
-        <InputNumber @bind-Value="SelectedClass.GoverningAttribute" class="form-control" />
-        <ValidationMessage For="@(() => SelectedClass.GoverningAttribute)" class="text-danger" />
+        <div>
+            <InputSelect @bind-Value="SelectedClass.GoverningAttribute" class="form-control">
+                <option value="">(Choose)</option>
+                @foreach (CoreStatModel stat in AttributeStats)
+                {
+                    <option value="@stat.Id">@stat.StatName</option>
+                }
+            </InputSelect>
+        </div>
     </div>
    
     <div class="form-group">
@@ -30,7 +37,7 @@
     [Parameter] public CharacterClassModel SelectedClass { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
-    [Parameter] public List<StatModel> Attributes { get; set; }
+    [Parameter] public List<CoreStatModel> AttributeStats { get; set; }
 
 }
 

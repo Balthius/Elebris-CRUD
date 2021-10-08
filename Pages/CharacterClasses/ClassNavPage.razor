@@ -1,0 +1,14 @@
+﻿@page "/ClassNavOptions"
+@inject NavigationManager UriHelper
+
+<h3>Character Page</h3>
+<button @onclick=@ViewCharacterClassList>View All Classes</button>
+@code {
+
+    void ViewCharacterClassList()
+    {
+        UriHelper.NavigateTo("/CharacterClass/FetchData");
+    }
+
+
+}  

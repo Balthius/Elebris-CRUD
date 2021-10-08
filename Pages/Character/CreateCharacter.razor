@@ -9,7 +9,7 @@
     CharacterModel SelectedCharacter = new CharacterModel();
     async Task CreateNewCharacter()
     {
-        CoreCharacterModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedCharacter);
+        CoreCharacterModel dbModel = ModelConverter.CovertToDBModel(SelectedCharacter);
         int id = await charaData.CreateCharacter(dbModel);
         NavigateToFetchData();
     }

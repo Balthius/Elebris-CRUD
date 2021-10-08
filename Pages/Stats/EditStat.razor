@@ -3,7 +3,7 @@
 @inject NavigationManager UriHelper
 <h3>Edit</h3>
 
-<StatForm ButtonText="Edit Stat" SelectedStat="@SelectedStat"
+<StatForm ButtonText="Update" SelectedStat="@SelectedStat"
           OnValidSubmit="@EditExistingStat" AllStatGroups="@AllStatGroups" />
 
 
@@ -18,11 +18,11 @@
     {
         CoreStatModel model = await statData.GetStatByID(statId);
         AllStatGroups = await statData.GetAllStatGroups();
-        SelectedStat = ElebrisBlazorUtilities.CovertFromDBModel(model);
+        SelectedStat = ModelConverter.CovertFromDBModel(model);
     }
     public async Task EditExistingStat()
     {
-        CoreStatModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedStat);
+        CoreStatModel dbModel = ModelConverter.CovertToDBModel(SelectedStat);
         int id = await statData.UpdateStat(dbModel);
         NavigateToFetchData();
     }

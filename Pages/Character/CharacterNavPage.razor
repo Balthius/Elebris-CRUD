@@ -3,17 +3,12 @@
 
 <h3>Character Page</h3>
 <button @onclick=@ViewCharacterList>View Characters</button>
-<button @onclick=@ViewCharacterClassList>View Character Classes</button>
 @code {
 
 
     void ViewCharacterList()
     {
         UriHelper.NavigateTo("/Character/FetchData");
-    }
-    void ViewCharacterClassList()
-    {
-        UriHelper.NavigateTo("/Character/FetchClassData");
     }
 
 

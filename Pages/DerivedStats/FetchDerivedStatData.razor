@@ -62,7 +62,7 @@ else
         List<DerivedStatModel> dbModels = await statData.GetAllDerivedStats();
         foreach (var item in dbModels)
         {
-            DerivedStatUpdateModel model = ElebrisBlazorUtilities.CovertFromDBModel(item);
+            DerivedStatUpdateModel model = ModelConverter.CovertFromDBModel(item);
             selectedDerivedStats.Add(model);
         }
     }

@@ -53,7 +53,7 @@ else
         List<CoreCharacterModel> dbModels = await charaData.GetAllCharacterModels();
         foreach (var item in dbModels)
         {
-            CharacterModel model = ElebrisBlazorUtilities.CovertFromDBModel(item);
+            CharacterModel model = ModelConverter.CovertFromDBModel(item);
             characters.Add(model);
 
         }

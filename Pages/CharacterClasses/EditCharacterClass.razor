@@ -1,32 +1,36 @@
-﻿@page "/CharacterClass/Edit/{characterId:int}"
-@inject ICharacterData charaData
+﻿@page "/CharacterClass/Edit/{classId:int}"
+@inject ICharacterClassData classData
+@inject ICachedLists cachedList
 @inject NavigationManager UriHelper
 <h3>Edit</h3>
 
-<CharacterForm ButtonText="Update" SelectedCharacter="SelectedCharacter"
-      OnValidSubmit="EditExistingCharacter" />
+<CharacterClassForm ButtonText="Update" SelectedClass="@SelectedClass" AttributeStats="@AttributeStats"
+                    OnValidSubmit="EditExistingCharacter" />
 
 
 @code {
-    [Parameter] public int characterId { get; set; }
+    [Parameter] public int classId { get; set; }
 
-    CharacterModel SelectedCharacter = new CharacterModel();
+    CharacterClassModel SelectedClass = new CharacterClassModel();
+
+    List<CoreStatModel> AttributeStats = new List<CoreStatModel>();
 
     protected async override Task OnParametersSetAsync()
     {
-        CoreCharacterModel model = await charaData.GetCharacterByID(characterId);
+        CoreCharacterClassModel classModel = await classData.GetCharacterClassByID(classId);
 
-        SelectedCharacter = ElebrisBlazorUtilities.CovertFromDBModel(model);
+        SelectedClass = ModelConverter.CovertFromDBModel(classModel);
+        AttributeStats = cachedList.CachedAttributes;
     }
     public async Task EditExistingCharacter()
     {
-        CoreCharacterModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedCharacter);
-        int id = await charaData.UpdateCharacter(dbModel);
+        CoreCharacterClassModel dbModel = ModelConverter.CovertToDBModel(SelectedClass);
+        int id = await classData.UpdateCharacterClass(dbModel);
         NavigateToFetchData();
     }
     public void NavigateToFetchData()
     {
-        UriHelper.NavigateTo("/Character/FetchData");
+        UriHelper.NavigateTo("/CharacterClass/FetchData");
     }
 }
 

@@ -3,7 +3,7 @@
 @inject NavigationManager UriHelper
 <h3>Edit</h3>
 
-<DerivedStatForm ButtonText="Edit DerivedStat" SelectedDerivedStat="@SelectedDerivedStat"
+<DerivedStatForm ButtonText="Update" SelectedDerivedStat="@SelectedDerivedStat"
           OnValidSubmit="@EditExistingDerivedStat" AllStats="@AllStats" />
 
 
@@ -17,11 +17,11 @@
     {
         DerivedStatModel model = await statData.GetDerivedStatByID(DerivedStatId);
         AllStats = await statData.GetAllStats();
-        SelectedDerivedStat = ElebrisBlazorUtilities.CovertFromDBModel(model);
+        SelectedDerivedStat = ModelConverter.CovertFromDBModel(model);
     }
     public async Task EditExistingDerivedStat()
     {
-        DerivedStatModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedDerivedStat);
+        DerivedStatModel dbModel = ModelConverter.CovertToDBModel(SelectedDerivedStat);
         int id = await statData.UpdateDerivedStat(dbModel);
         NavigateToFetchData();
     }

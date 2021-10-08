@@ -38,6 +38,7 @@ namespace Elebris.CRUD
             services.AddSingleton<IStatData, StatData>();
             services.AddSingleton<IUserData, UserData>();
             services.AddSingleton<ICharacterClassData, CharacterClassData>();
+            services.AddSingleton<ICachedLists, CachedLists>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

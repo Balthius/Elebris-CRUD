@@ -15,7 +15,7 @@
     }
     async Task CreateNewDerivedStat()
     {
-        DerivedStatModel dbModel = ElebrisBlazorUtilities.CovertToDBModel(SelectedDerivedStat);
+        DerivedStatModel dbModel = ModelConverter.CovertToDBModel(SelectedDerivedStat);
         int id = await statData.CreateDerivedStat(dbModel);
         NavigateToFetchData();
     }
