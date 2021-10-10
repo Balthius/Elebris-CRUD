@@ -14,13 +14,13 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        CoreCharacterModel model = await charaData.GetCharacterByID(characterId);
+        CharacterModel model = await charaData.GetCharacterByID(characterId);
 
         SelectedCharacter = ModelConverter.CovertFromDBModel(model);
     }
     public async Task EditExistingCharacter()
     {
-        CoreCharacterModel dbModel = ModelConverter.CovertToDBModel(SelectedCharacter);
+        CharacterModel dbModel = ModelConverter.CovertToDBModel(SelectedCharacter);
         int id = await charaData.UpdateCharacter(dbModel);
         NavigateToFetchData();
     }
@@ -30,4 +30,4 @@
     }
 }
 
-@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-core/*@
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-/*@

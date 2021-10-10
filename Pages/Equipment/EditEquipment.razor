@@ -1,0 +1,40 @@
+﻿@page "/Equipment/Edit/{equipId:int}"
+@inject NavigationManager UriHelper
+@inject IEquipmentData equipData
+@inject ICachedLists cachedList
+
+<h3>Edit</h3>
+
+<EquipmentForm ButtonText="Update" SelectedEquipment="@SelectedEquipment" EquipmentGroups="EquipmentGroups"
+               OnValidSubmit="@EditExistingEquipment" />
+
+
+@code {
+    [Parameter] public int equipId { get; set; }
+
+    EquipmentModel SelectedEquipment = new EquipmentModel();
+
+    public List<EquipmentGroupModel> EquipmentGroups { get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+        EquipmentGroups = cachedList.CachedEquipmentGroups;
+    }
+
+    protected async override Task OnParametersSetAsync()
+    {
+        EquipmentModel model = await equipData.GetEquipmentByID(equipId);
+        SelectedEquipment = ModelConverter.CovertFromDBModel(model);
+    }
+    public async Task EditExistingEquipment()
+    {
+        EquipmentModel dbModel = ModelConverter.CovertToDBModel(SelectedEquipment);
+        int id = await equipData.UpdateEquipment(dbModel);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/Equipment/FetchData");
+    }
+}
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-/*@

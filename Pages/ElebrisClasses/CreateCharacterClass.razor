@@ -1,0 +1,26 @@
+﻿@page "/ElebrisClass/Create"
+@inject NavigationManager UriHelper
+@inject IElebrisClassData charaClassData
+ @inject ICachedLists cachedList
+
+<h3>Create</h3>
+<ElebrisClassForm ButtonText="Create Character Class" SelectedClass="@SelectedClass" AttributeStats="@AttributeStats"
+               OnValidSubmit="@CreateNewCharacter" />
+@code {
+    ElebrisClassModel SelectedClass = new ElebrisClassModel();
+    List<StatModel> AttributeStats = new List<StatModel>();
+    protected async override Task OnInitializedAsync()
+    {
+        AttributeStats = cachedList.CachedAttributes;
+    }
+    async Task CreateNewCharacter()
+    {
+        ElebrisClassModel dbModel = ModelConverter.CovertToDBModel(SelectedClass);
+        int id = await charaClassData.CreateElebrisClass(dbModel);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/ElebrisClass/FetchData");
+    }
+}

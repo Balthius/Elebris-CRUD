@@ -6,7 +6,13 @@ namespace Elebris.CRUD.Data
 {
     public interface ICachedLists
     {
-        List<CoreStatModel> CachedAttributes { get; set; }
+        List<StatModel> CachedAttributes { get; set; }
         List<StatGroupModel> CachedStatGroups { get; set; }
+        List<ClassRoleModel> CachedClassRoles { get; set; } 
+
+        List<EquipmentModel> CachedEquipmentTypes { get; set; } 
+
+        List<EquipmentGroupModel> CachedEquipmentGroups { get; set; }
+
     }
 }

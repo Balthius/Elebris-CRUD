@@ -1,4 +1,5 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿@inject ICachedLists cachedLists
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Elebris.CRUD</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -29,14 +30,19 @@
         </li>*@
         <li class="nav-item px-3">
             <NavLink class="nav-link" href="/ClassNavOptions">
-                <span class="oi oi-compass" aria-hidden="true"></span> Stats
+                <span class="oi oi-compass" aria-hidden="true"></span> Classes
             </NavLink>
         </li>
-        @*<li class="nav-item px-3">
-            <NavLink class="nav-link" href="/GearNavOptions">
-                <span class="oi oi-box" aria-hidden="true"></span> Stats
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="/RoleNavOptions">
+                <span class="oi oi-briefcase" aria-hidden="true"></span> Roles
             </NavLink>
-        </li>*@
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="/EquipmentNavOptions">
+                <span class="oi oi-box" aria-hidden="true"></span> Equipment
+            </NavLink>
+        </li>
         @*<li class="nav-item px-3">
             <NavLink class="nav-link" href="/SkillNavOptions">
                 <span class="oi oi-book" aria-hidden="true"></span> Stats
@@ -55,4 +61,5 @@
     {
         collapseNavMenu = !collapseNavMenu;
     }
+    
 }

@@ -16,13 +16,13 @@
     List<StatGroupModel> AllStatGroups = new List<StatGroupModel>();
     protected async override Task OnParametersSetAsync()
     {
-        CoreStatModel model = await statData.GetStatByID(statId);
+        StatModel model = await statData.GetStatByID(statId);
         AllStatGroups = await statData.GetAllStatGroups();
         SelectedStat = ModelConverter.CovertFromDBModel(model);
     }
     public async Task EditExistingStat()
     {
-        CoreStatModel dbModel = ModelConverter.CovertToDBModel(SelectedStat);
+        StatModel dbModel = ModelConverter.CovertToDBModel(SelectedStat);
         int id = await statData.UpdateStat(dbModel);
         NavigateToFetchData();
     }
@@ -32,4 +32,4 @@
     }
 }
 
-@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-core/*@
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-/*@

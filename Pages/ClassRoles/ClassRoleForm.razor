@@ -1,0 +1,38 @@
+﻿
+<h3>Form</h3>
+<EditForm Model="@SelectedRole" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary Model="@SelectedRole" />
+
+
+    <div class="form-group">
+        <label class="control-label">Role Name</label>
+        <InputText @bind-Value="SelectedRole.Name" class="form-control" />
+        <ValidationMessage For="@(() => SelectedRole.Name)" class="text-danger" />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Description</label>
+        <InputTextArea @bind-Value="SelectedRole.Description" class="form-control" />
+        <ValidationMessage For="@(() => SelectedRole.Description)" class="text-danger" />
+    </div>
+    
+    
+
+    <button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+
+
+</EditForm>
+@code {
+    [Parameter] public ClassRoleModel SelectedRole { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+}
+
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-/*@
+
+
+@*https://www.syncfusion.com/blogs/post/how-to-create-a-dynamic-form-builder-in-blazor.aspx*@

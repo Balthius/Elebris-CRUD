@@ -1,0 +1,74 @@
+﻿@page "/ClassRole/FetchData"
+@inject IElebrisClassData classData
+@inject IJSRuntime js
+<h3>Class Roles</h3>
+
+<small>Add as many roles as you wish.</small>
+<div class="form-group">
+    <a class="btn btn-success" href="classrole/create"><i class="oi oi-plus"></i> Create New</a>
+</div>
+<br>
+@if (ClassRoles == null)
+{
+    <text>Loading...</text>
+}
+else if (ClassRoles.Count == 0)
+{
+    <text>No Records Found.</text>
+}
+else
+{
+   
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Role Name</th>
+                <th>Role Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ClassRoleModel item in ClassRoles)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                   
+                    <td>
+                        <a class="btn btn-success" href="/ClassRole/Edit/@item.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(item.Id))">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    }
+@code {
+
+
+    private List<ClassRoleModel> ClassRoles { get; set; } = new List<ClassRoleModel>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var roleModels = await classData.GetAllClassRoles();
+        foreach (var model in roleModels)
+        {
+            var appModel = ModelConverter.CovertFromDBModel(model);
+            ClassRoles.Add(appModel);
+        }
+    }
+
+    async Task Delete(int roleid)
+    {
+        var role = ClassRoles.First(x => x.Id == roleid);
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {role.Name}'s ({role.Id}) Record?"))
+        {
+
+            await classData.DeleteClassRole(roleid);
+        }
+    }
+
+
+}

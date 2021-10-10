@@ -7,7 +7,7 @@
       OnValidSubmit="@CreateNewDerivedStat" AllStats="@AllStats" />
 @code {
     DerivedStatUpdateModel SelectedDerivedStat = new DerivedStatUpdateModel();
-    public List<CoreStatModel> AllStats { get; set; } = new List<CoreStatModel>(); 
+    public List<StatModel> AllStats { get; set; } = new List<StatModel>(); 
     
     protected async override Task OnParametersSetAsync()
     {

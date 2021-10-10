@@ -11,7 +11,7 @@
     [Parameter] public int DerivedStatId { get; set; }
 
     DerivedStatUpdateModel SelectedDerivedStat = new DerivedStatUpdateModel();
-    public List<CoreStatModel> AllStats { get; set; } = new List<CoreStatModel>();
+    public List<StatModel> AllStats { get; set; } = new List<StatModel>();
 
     protected async override Task OnParametersSetAsync()
     {
@@ -31,4 +31,4 @@
     }
 }
 
-@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-core/*@
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-/*@

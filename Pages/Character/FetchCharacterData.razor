@@ -50,7 +50,7 @@ else
     private List<CharacterModel> characters { get; set; } = new List<CharacterModel>();
     protected override async Task OnInitializedAsync()
     {
-        List<CoreCharacterModel> dbModels = await charaData.GetAllCharacterModels();
+        List<CharacterModel> dbModels = await charaData.GetAllCharacterModels();
         foreach (var item in dbModels)
         {
             CharacterModel model = ModelConverter.CovertFromDBModel(item);

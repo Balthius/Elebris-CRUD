@@ -1,0 +1,30 @@
+﻿@page "/ClassRole/Create"
+@inject NavigationManager UriHelper
+@inject IElebrisClassData classData
+
+<h3>Create</h3>
+<ClassRoleForm ButtonText="Create" SelectedRole="@SelectedRole"
+          OnValidSubmit="@CreateNewRole" />
+@code {
+    ClassRoleModel SelectedRole = new ClassRoleModel();
+
+    protected async override Task OnInitializedAsync()
+    {
+    }
+
+    protected async override Task OnParametersSetAsync()
+    {
+
+    }
+    async Task CreateNewRole()
+    {
+        ClassRoleModel dbModel = ModelConverter.CovertToDBModel(SelectedRole);
+
+        int id = await classData.CreateElebrisRole(dbModel);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/ClassRole/FetchData");
+    }
+}

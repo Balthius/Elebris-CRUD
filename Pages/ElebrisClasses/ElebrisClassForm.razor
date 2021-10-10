@@ -15,7 +15,7 @@
         <div>
             <InputSelect @bind-Value="SelectedClass.GoverningAttribute" class="form-control">
                 <option value="">(Choose)</option>
-                @foreach (CoreStatModel stat in AttributeStats)
+                @foreach (StatModel stat in AttributeStats)
                 {
                     <option value="@stat.Id">@stat.StatName</option>
                 }
@@ -34,15 +34,15 @@
     </button>
 </EditForm>
 @code {
-    [Parameter] public CharacterClassModel SelectedClass { get; set; }
+    [Parameter] public ElebrisClassModel SelectedClass { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
-    [Parameter] public List<CoreStatModel> AttributeStats { get; set; }
+    [Parameter] public List<StatModel> AttributeStats { get; set; }
 
 }
 
 
-@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-core/*@
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-/*@
 
 
 @*https://www.syncfusion.com/blogs/post/how-to-create-a-dynamic-form-builder-in-blazor.aspx*@

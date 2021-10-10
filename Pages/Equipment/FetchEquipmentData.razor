@@ -1,0 +1,85 @@
+﻿@page "/Equipment/FetchData"
+@inject IEquipmentData equipData
+@inject ICachedLists cachedList
+@inject IJSRuntime js
+<h3>Equipment</h3>
+
+    <small>Add as many equipable items as you wish.</small>
+    <div class="form-group">
+        <a class="btn btn-success" href="equipment/create"><i class="oi oi-plus"></i> Create New</a>
+    </div>
+    <br>
+    @if (AllEquipment == null)
+    {
+        <text>Loading...</text>
+    }
+    else if (AllEquipment.Count == 0)
+    {
+        <text>No Records Found.</text>
+    }
+    else
+    {
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (EquipmentModel item in AllEquipment)
+                {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@ReturnEquipmentGroupName(@item.EquipmentGroup)</td>
+
+                    <td>
+                        <a class="btn btn-success" href="/Equipment/Edit/@item.Id">Edit</a>
+                        <button class="btn btn-danger" @onclick="@(() => Delete(item.Id))">Delete</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    }
+    @code {
+
+
+        private List<EquipmentModel> AllEquipment { get; set; } = new List<EquipmentModel>();
+        private List<EquipmentGroupModel> EquipmentGroups { get; set; } = new List<EquipmentGroupModel>();
+        protected override async Task OnInitializedAsync()
+        {
+            EquipmentGroups = cachedList.CachedEquipmentGroups;
+            var equipModels = await equipData.GetAllEquipmentModels();
+            foreach (var model in equipModels)
+            {
+                var appModel = ModelConverter.CovertFromDBModel(model);
+                AllEquipment.Add(appModel);
+            }
+        }
+
+        async Task Delete(int roleid)
+        {
+            var equip = AllEquipment.First(x => x.Id == roleid);
+            if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {equip.Name}'s ({equip.Id}) Record?"))
+            {
+
+                await equipData.DeleteEquipment(roleid);
+            }
+        }
+        public string ReturnEquipmentGroupName(int id)
+        {
+            
+            var group = EquipmentGroups.FirstOrDefault(x => x.Id == id);
+            return group.Name;
+
+        }
+
+
+    }
+

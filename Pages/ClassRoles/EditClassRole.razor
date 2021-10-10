@@ -1,0 +1,36 @@
+﻿@page "/ClassRole/Edit/{roleId:int}"
+@inject NavigationManager UriHelper
+@inject IElebrisClassData classData
+<h3>Edit</h3>
+
+<ClassRoleForm ButtonText="Update" SelectedRole="@SelectedRole"
+          OnValidSubmit="@EditExistingRole"/>
+
+
+@code {
+    [Parameter] public int roleId { get; set; }
+
+    ClassRoleModel SelectedRole = new ClassRoleModel();
+
+    protected async override Task OnInitializedAsync()
+    {
+    }
+    protected async override Task OnParametersSetAsync()
+    {
+        ClassRoleModel model = await classData.GetRoleByID(roleId);
+        SelectedRole = ModelConverter.CovertFromDBModel(model);
+
+    }
+    public async Task EditExistingRole()
+    {
+        ClassRoleModel dbModel = ModelConverter.CovertToDBModel(SelectedRole);
+        int id = await classData.UpdateClassRoles(dbModel);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/ClassRole/FetchData");
+    }
+}
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-/*@

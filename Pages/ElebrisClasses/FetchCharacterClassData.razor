@@ -1,7 +1,6 @@
-﻿@page "/CharacterClass/FetchData"
+﻿@page "/ElebrisClass/FetchData"
 
-@inject ICharacterClassData classData
-@inject IStatData statData
+@inject IElebrisClassData classData
 @inject ICachedLists cachedList
 @inject IJSRuntime js
 <h3>Available Classes</h3>
@@ -14,7 +13,7 @@ else
 {
     <small>Add as many classes as you wish.</small>
     <div class="form-group">
-        <a class="btn btn-success" href="characterclass/create"><i class="oi oi-plus"></i> Create New</a>
+        <a class="btn btn-success" href="ElebrisClass/create"><i class="oi oi-plus"></i> Create New</a>
     </div>
 }
 <br>
@@ -38,14 +37,14 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (CharacterClassModel charaClass in characlasses)
+            @foreach (ElebrisClassModel charaClass in characlasses)
             {
                 <tr>
                     <td>@charaClass.Id</td>
                     <td>@charaClass.Name</td>
                     <td>@ReturnAttributeName(charaClass.GoverningAttribute)</td>
                     <td>
-                        <a class="btn btn-success" href="/CharacterClass/Edit/@charaClass.Id">Edit</a>
+                        <a class="btn btn-success" href="/ElebrisClass/Edit/@charaClass.Id">Edit</a>
                         <button class="btn btn-danger" @onclick="@(() => Delete(charaClass.Id))">Delete</button>
                     </td>
                 </tr>
@@ -56,15 +55,15 @@ else
 @code {
 
 
-    private List<CharacterClassModel> characlasses { get; set; } = new List<CharacterClassModel>();
+    private List<ElebrisClassModel> characlasses { get; set; } = new List<ElebrisClassModel>();
 
-    List<CoreStatModel> AttributeStats = new List<CoreStatModel>();
+    List<StatModel> AttributeStats = new List<StatModel>();
     protected override async Task OnInitializedAsync()
     {
-        List<CoreCharacterClassModel> dbModels = await classData.GetAllCharacterClassModels();
+        List<ElebrisClassModel> dbModels = await classData.GetAllElebrisClassModels();
         foreach (var item in dbModels)
         {
-            CharacterClassModel model = ModelConverter.CovertFromDBModel(item);
+            ElebrisClassModel model = ModelConverter.CovertFromDBModel(item);
             characlasses.Add(model);
 
         }
@@ -77,7 +76,7 @@ else
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {characlass.Name}'s ({characlass.Id}) Record?"))
         {
 
-            await classData.DeleteCharacterClass(charaid);
+            await classData.DeleteElebrisClass(charaid);
         }
     }
 

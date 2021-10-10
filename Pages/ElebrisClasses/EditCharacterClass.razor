@@ -1,0 +1,37 @@
+﻿@page "/ElebrisClass/Edit/{classId:int}"
+@inject IElebrisClassData classData
+@inject ICachedLists cachedList
+@inject NavigationManager UriHelper
+<h3>Edit</h3>
+
+<ElebrisClassForm ButtonText="Update" SelectedClass="@SelectedClass" AttributeStats="@AttributeStats"
+                    OnValidSubmit="EditExistingCharacter" />
+
+
+@code {
+    [Parameter] public int classId { get; set; }
+
+    ElebrisClassModel SelectedClass = new ElebrisClassModel();
+
+    List<StatModel> AttributeStats = new List<StatModel>();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        ElebrisClassModel classModel = await classData.GetElebrisClassByID(classId);
+
+        SelectedClass = ModelConverter.CovertFromDBModel(classModel);
+        AttributeStats = cachedList.CachedAttributes;
+    }
+    public async Task EditExistingCharacter()
+    {
+        ElebrisClassModel dbModel = ModelConverter.CovertToDBModel(SelectedClass);
+        int id = await classData.UpdateElebrisClass(dbModel);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/ElebrisClass/FetchData");
+    }
+}
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-/*@

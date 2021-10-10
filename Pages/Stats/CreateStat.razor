@@ -15,7 +15,7 @@
     }
     async Task CreateNewStat()
     {
-        CoreStatModel dbModel = ModelConverter.CovertToDBModel(SelectedStat);
+        StatModel dbModel = ModelConverter.CovertToDBModel(SelectedStat);
 
         int id = await statData.CreateStat(dbModel);
         NavigateToFetchData();

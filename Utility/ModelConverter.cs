@@ -1,4 +1,4 @@
-﻿using Elebris.CRUD.Models;
+﻿using Elebris.Database.Models;
 using Elebris.Database.Manager;
 using Elebris.Database.Manager.Models;
 using System;
@@ -10,7 +10,7 @@ namespace Elebris.Utilities
 {
     public static class ModelConverter
     {
-        public static CharacterModel CovertFromDBModel(CoreCharacterModel dbModel)
+        public static CharacterModel CovertFromDBModel(CharacterModel dbModel)
         {
             CharacterModel appModel = new CharacterModel();
             appModel.FirstName = dbModel.FirstName;
@@ -36,7 +36,7 @@ namespace Elebris.Utilities
 
             return model;
         }
-        public static StatModel CovertFromDBModel(CoreStatModel dbModel)
+        public static StatModel CovertFromDBModel(StatModel dbModel)
         {
             StatModel model = new StatModel();
             model.Id = dbModel.Id;
@@ -46,9 +46,9 @@ namespace Elebris.Utilities
 
             return model;
         }
-        public static CharacterClassModel CovertFromDBModel(CoreCharacterClassModel dbModel)
+        public static ElebrisClassModel CovertFromDBModel(ElebrisClassModel dbModel)
         {
-            CharacterClassModel model = new CharacterClassModel();
+            ElebrisClassModel model = new ElebrisClassModel();
             model.Id = dbModel.Id;
             model.Name = dbModel.Name;
             model.GoverningAttribute = dbModel.GoverningAttribute;
@@ -56,10 +56,29 @@ namespace Elebris.Utilities
 
             return model;
         }
-
-        public static CoreCharacterModel CovertToDBModel(CharacterModel appModel)
+        public static EquipmentModel CovertFromDBModel(EquipmentModel dbModel)
         {
-            CoreCharacterModel dbModel = new CoreCharacterModel();
+            EquipmentModel model = new EquipmentModel();
+            model.Id = dbModel.Id;
+            model.Name = dbModel.Name;
+            model.EquipmentGroup = dbModel.EquipmentGroup;
+            model.Description = dbModel.Description;
+
+            return model;
+        }
+        public static ClassRoleModel CovertFromDBModel(ClassRoleModel dbModel)
+        {
+            ClassRoleModel model = new ClassRoleModel();
+            model.Id = dbModel.Id;
+            model.Name = dbModel.Name;
+            model.Description = dbModel.Description;
+
+            return model;
+        }
+
+        public static CharacterModel CovertToDBModel(CharacterModel appModel)
+        {
+            CharacterModel dbModel = new CharacterModel();
             dbModel.FirstName = appModel.FirstName;
             dbModel.LastName = appModel.LastName;
             dbModel.Id = appModel.Id;
@@ -72,9 +91,9 @@ namespace Elebris.Utilities
 
             return dbModel;
         }
-        public static CoreStatModel CovertToDBModel(StatModel appModel)
+        public static StatModel CovertToDBModel(StatModel appModel)
         {
-            CoreStatModel model = new CoreStatModel();
+            StatModel model = new StatModel();
 
             model.Id = appModel.Id;
             model.StatName = appModel.StatName;
@@ -93,12 +112,31 @@ namespace Elebris.Utilities
             model.ScaleFromParent = appModel.ScaleFromParent;
             return model;
         }
-        public static CoreCharacterClassModel CovertToDBModel(CharacterClassModel appModel)
+        public static ElebrisClassModel CovertToDBModel(ElebrisClassModel appModel)
         {
-            CoreCharacterClassModel model = new CoreCharacterClassModel();
+            ElebrisClassModel model = new ElebrisClassModel();
             model.Id = appModel.Id;
             model.Name = appModel.Name;
             model.GoverningAttribute = appModel.GoverningAttribute;
+            model.Description = appModel.Description;
+
+            return model;
+        }
+        public static EquipmentModel CovertToDBModel(EquipmentModel appModel)
+        {
+            EquipmentModel model = new EquipmentModel();
+            model.Id = appModel.Id;
+            model.Name = appModel.Name;
+            model.EquipmentGroup = appModel.EquipmentGroup;
+            model.Description = appModel.Description;
+
+            return model;
+        }
+        public static ClassRoleModel CovertToDBModel(ClassRoleModel appModel)
+        {
+            ClassRoleModel model = new ClassRoleModel();
+            model.Id = appModel.Id;
+            model.Name = appModel.Name;
             model.Description = appModel.Description;
 
             return model;

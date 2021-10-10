@@ -14,7 +14,7 @@
         <div>
             <InputSelect @bind-Value="SelectedDerivedStat.ParentStatId" class="form-control">
                 <option value="">(Choose)</option>
-                @foreach (CoreStatModel stat in AllStats)
+                @foreach (StatModel stat in AllStats)
                 {
                     <option value="@stat.Id">@stat.StatName</option>
                 }
@@ -27,7 +27,7 @@
         <div>
             <InputSelect @bind-Value="SelectedDerivedStat.TargetStatId" class="form-control">
                 <option value="">(Choose)</option>
-                @foreach (CoreStatModel stat in AllStats)
+                @foreach (StatModel stat in AllStats)
                 {
                     <option value="@stat.Id">@stat.StatName</option>
                 }
@@ -53,12 +53,12 @@
     [Parameter] public DerivedStatUpdateModel SelectedDerivedStat { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
-    [Parameter] public List<CoreStatModel> AllStats { get; set; }
+    [Parameter] public List<StatModel> AllStats { get; set; }
 
 }
 
 
-@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-core/*@
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-/*@
 
 
 @*https://www.syncfusion.com/blogs/post/how-to-create-a-dynamic-form-builder-in-blazor.aspx*@
