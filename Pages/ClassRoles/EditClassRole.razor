@@ -17,14 +17,12 @@
     }
     protected async override Task OnParametersSetAsync()
     {
-        ClassRoleModel model = await classData.GetRoleByID(roleId);
-        SelectedRole = ModelConverter.CovertFromDBModel(model);
+        SelectedRole = await classData.GetRoleByID(roleId);
 
     }
     public async Task EditExistingRole()
     {
-        ClassRoleModel dbModel = ModelConverter.CovertToDBModel(SelectedRole);
-        int id = await classData.UpdateClassRoles(dbModel);
+        int id = await classData.UpdateClassRoles(SelectedRole);
         NavigateToFetchData();
     }
     public void NavigateToFetchData()

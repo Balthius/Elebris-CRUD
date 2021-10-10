@@ -18,9 +18,8 @@
     }
     async Task CreateNewRole()
     {
-        ClassRoleModel dbModel = ModelConverter.CovertToDBModel(SelectedRole);
 
-        int id = await classData.CreateElebrisRole(dbModel);
+        int id = await classData.CreateElebrisRole(SelectedRole);
         NavigateToFetchData();
     }
     public void NavigateToFetchData()

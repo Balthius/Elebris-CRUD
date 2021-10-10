@@ -14,14 +14,12 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        CharacterModel model = await charaData.GetCharacterByID(characterId);
+       SelectedCharacter = await charaData.GetCharacterByID(characterId);
 
-        SelectedCharacter = ModelConverter.CovertFromDBModel(model);
     }
     public async Task EditExistingCharacter()
     {
-        CharacterModel dbModel = ModelConverter.CovertToDBModel(SelectedCharacter);
-        int id = await charaData.UpdateCharacter(dbModel);
+        int id = await charaData.UpdateCharacter(SelectedCharacter);
         NavigateToFetchData();
     }
     public void NavigateToFetchData()

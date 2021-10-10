@@ -50,13 +50,8 @@ else
     private List<CharacterModel> characters { get; set; } = new List<CharacterModel>();
     protected override async Task OnInitializedAsync()
     {
-        List<CharacterModel> dbModels = await charaData.GetAllCharacterModels();
-        foreach (var item in dbModels)
-        {
-            CharacterModel model = ModelConverter.CovertFromDBModel(item);
-            characters.Add(model);
-
-        }
+        characters= await charaData.GetAllCharacterModels();
+       
     }
     async Task Delete(int charaid)
     {

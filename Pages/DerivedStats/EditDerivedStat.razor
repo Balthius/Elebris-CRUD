@@ -10,19 +10,17 @@
 @code {
     [Parameter] public int DerivedStatId { get; set; }
 
-    DerivedStatUpdateModel SelectedDerivedStat = new DerivedStatUpdateModel();
+    DerivedStatModel SelectedDerivedStat = new DerivedStatModel();
     public List<StatModel> AllStats { get; set; } = new List<StatModel>();
 
     protected async override Task OnParametersSetAsync()
     {
-        DerivedStatModel model = await statData.GetDerivedStatByID(DerivedStatId);
+        SelectedDerivedStat = await statData.GetDerivedStatByID(DerivedStatId);
         AllStats = await statData.GetAllStats();
-        SelectedDerivedStat = ModelConverter.CovertFromDBModel(model);
     }
     public async Task EditExistingDerivedStat()
     {
-        DerivedStatModel dbModel = ModelConverter.CovertToDBModel(SelectedDerivedStat);
-        int id = await statData.UpdateDerivedStat(dbModel);
+        int id = await statData.UpdateDerivedStat(SelectedDerivedStat);
         NavigateToFetchData();
     }
     public void NavigateToFetchData()

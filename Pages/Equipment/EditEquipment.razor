@@ -22,13 +22,11 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        EquipmentModel model = await equipData.GetEquipmentByID(equipId);
-        SelectedEquipment = ModelConverter.CovertFromDBModel(model);
+        SelectedEquipment = await equipData.GetEquipmentByID(equipId);
     }
     public async Task EditExistingEquipment()
     {
-        EquipmentModel dbModel = ModelConverter.CovertToDBModel(SelectedEquipment);
-        int id = await equipData.UpdateEquipment(dbModel);
+        int id = await equipData.UpdateEquipment(SelectedEquipment);
         NavigateToFetchData();
     }
     public void NavigateToFetchData()

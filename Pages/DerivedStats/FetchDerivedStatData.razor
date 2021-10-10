@@ -9,11 +9,11 @@
     <a class="btn btn-success" href="Derivedstat/create"><i class="oi oi-plus"></i> Create New</a>
 </div>
 <br>
-@if (selectedDerivedStats == null)
+@if (DerivedStats == null)
 {
     <text>Loading...</text>
 }
-else if (selectedDerivedStats.Count == 0)
+else if (DerivedStats.Count == 0)
 {
     <text>No Records Found.</text>
 }
@@ -32,7 +32,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (DerivedStatUpdateModel item in selectedDerivedStats)
+            @foreach (DerivedStatUpdateModel item in DerivedStats)
             {
             <tr>
                 <td>@item.Id</td>
@@ -52,24 +52,20 @@ else
 @code {
 
 
-    private List<DerivedStatUpdateModel> selectedDerivedStats { get; set; } = new List<DerivedStatUpdateModel>();
+    private List<DerivedStatModel> DerivedStats { get; set; } = new List<DerivedStatModel>();
 
     public List<StatModel> AllStats { get; set; } = new List<StatModel>();
 
     protected override async Task OnInitializedAsync()
     {
         AllStats = await statData.GetAllStats();
-        List<DerivedStatModel> dbModels = await statData.GetAllDerivedStats();
-        foreach (var item in dbModels)
-        {
-            DerivedStatUpdateModel model = ModelConverter.CovertFromDBModel(item);
-            selectedDerivedStats.Add(model);
-        }
+        DerivedStats = await statData.GetAllDerivedStats();
+
     }
 
     async Task Delete(int statid)
     {
-        var stat = selectedDerivedStats.First(x => x.Id == statid);
+        var stat = DerivedStats.First(x => x.Id == statid);
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {stat.Name}'s ({stat.Id}) Record?"))
         {
 

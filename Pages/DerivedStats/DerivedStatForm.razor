@@ -50,7 +50,7 @@
 
 </EditForm>
 @code {
-    [Parameter] public DerivedStatUpdateModel SelectedDerivedStat { get; set; }
+    [Parameter] public DerivedStatModel SelectedDerivedStat { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
     [Parameter] public List<StatModel> AllStats { get; set; }

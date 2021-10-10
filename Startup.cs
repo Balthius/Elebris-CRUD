@@ -1,4 +1,3 @@
-using Elebris.CRUD.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Elebris.Database.Manager;
+using Elebris.Database.Manager.Data;
 
 namespace Elebris.CRUD
 {
@@ -37,7 +37,7 @@ namespace Elebris.CRUD
             services.AddSingleton<ICharacterData, CharacterData>();
             services.AddSingleton<IStatData, StatData>();
             services.AddSingleton<IUserData, UserData>();
-            services.AddSingleton<ICharacterClassData, CharacterClassData>();
+            services.AddSingleton<IElebrisClassData, ElebrisClassData>();
             services.AddSingleton<ICachedLists, CachedLists>();
         }
 

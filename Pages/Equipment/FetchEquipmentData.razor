@@ -55,12 +55,8 @@
         protected override async Task OnInitializedAsync()
         {
             EquipmentGroups = cachedList.CachedEquipmentGroups;
-            var equipModels = await equipData.GetAllEquipmentModels();
-            foreach (var model in equipModels)
-            {
-                var appModel = ModelConverter.CovertFromDBModel(model);
-                AllEquipment.Add(appModel);
-            }
+            AllEquipment= await equipData.GetAllEquipmentModels();
+          
         }
 
         async Task Delete(int roleid)

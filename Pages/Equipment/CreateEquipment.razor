@@ -17,9 +17,9 @@
     }
     async Task CreateNewEquipment()
     {
-        EquipmentModel dbModel = ModelConverter.CovertToDBModel(SelectedEquipment);
+        
 
-        int id = await equipData.CreateEquipment(dbModel);
+        int id = await equipData.CreateEquipment(SelectedEquipment);
         NavigateToFetchData();
     }
     public void NavigateToFetchData()

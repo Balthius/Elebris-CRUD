@@ -17,15 +17,13 @@
 
     protected async override Task OnParametersSetAsync()
     {
-        ElebrisClassModel classModel = await classData.GetElebrisClassByID(classId);
+        SelectedClass = await classData.GetElebrisClassByID(classId);
 
-        SelectedClass = ModelConverter.CovertFromDBModel(classModel);
         AttributeStats = cachedList.CachedAttributes;
     }
     public async Task EditExistingCharacter()
     {
-        ElebrisClassModel dbModel = ModelConverter.CovertToDBModel(SelectedClass);
-        int id = await classData.UpdateElebrisClass(dbModel);
+        int id = await classData.UpdateElebrisClass(SelectedClass);
         NavigateToFetchData();
     }
     public void NavigateToFetchData()

@@ -66,13 +66,8 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        List<StatModel> dbModels = await statData.GetAllStats();
-        foreach (var item in dbModels)
-        {
-            StatModel model = ModelConverter.CovertFromDBModel(item);
-            allStats.Add(model);
-            selectedStats.Add(model);
-        }
+        selectedStats = allStats = await statData.GetAllStats();
+       
         statgroups = await statData.GetAllStatGroups();
     }
 

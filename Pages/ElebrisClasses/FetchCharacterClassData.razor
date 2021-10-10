@@ -60,13 +60,8 @@ else
     List<StatModel> AttributeStats = new List<StatModel>();
     protected override async Task OnInitializedAsync()
     {
-        List<ElebrisClassModel> dbModels = await classData.GetAllElebrisClassModels();
-        foreach (var item in dbModels)
-        {
-            ElebrisClassModel model = ModelConverter.CovertFromDBModel(item);
-            characlasses.Add(model);
-
-        }
+        characlasses = await classData.GetAllElebrisClassModels();
+        
         AttributeStats = cachedList.CachedAttributes;
 
     }

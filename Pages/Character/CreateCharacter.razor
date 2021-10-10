@@ -9,8 +9,7 @@
     CharacterModel SelectedCharacter = new CharacterModel();
     async Task CreateNewCharacter()
     {
-        CharacterModel dbModel = ModelConverter.CovertToDBModel(SelectedCharacter);
-        int id = await charaData.CreateCharacter(dbModel);
+        int id = await charaData.CreateCharacter(SelectedCharacter);
         NavigateToFetchData();
     }
     public void NavigateToFetchData()

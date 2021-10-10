@@ -16,14 +16,12 @@
     List<StatGroupModel> AllStatGroups = new List<StatGroupModel>();
     protected async override Task OnParametersSetAsync()
     {
-        StatModel model = await statData.GetStatByID(statId);
+        SelectedStat = await statData.GetStatByID(statId);
         AllStatGroups = await statData.GetAllStatGroups();
-        SelectedStat = ModelConverter.CovertFromDBModel(model);
     }
     public async Task EditExistingStat()
     {
-        StatModel dbModel = ModelConverter.CovertToDBModel(SelectedStat);
-        int id = await statData.UpdateStat(dbModel);
+        int id = await statData.UpdateStat(SelectedStat);
         NavigateToFetchData();
     }
     public void NavigateToFetchData()
