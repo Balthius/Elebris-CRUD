@@ -1,6 +1,7 @@
 ﻿using Elebris.Database.Manager;
 using Elebris.Database.Manager.DataAccess;
 using Elebris.Database.Manager.Models;
+using Elebris.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
