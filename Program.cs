@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Elebris.CRUD
+namespace Elebris.Tooling
 {
     public class Program
     {

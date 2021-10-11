@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using Elebris.Database.Manager;
 using Elebris.Database.Manager.Data;
 
-namespace Elebris.CRUD
+namespace Elebris.Tooling
 {
     public class Startup
     {
