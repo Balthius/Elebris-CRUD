@@ -1,8 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
 
   <ItemGroup>
     <Content Update="appsettings.Development.json">
@@ -30,157 +31,24 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>
-
+  
+  
   <ItemGroup>
     <UpToDateCheckInput Remove="Pages\Character\CharacterForm.razor" />
   </ItemGroup>
 
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Pages\Character\CharacterForm.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Character\CharacterNavPage.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Character\CreateCharacter.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Character\EditCharacter.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Character\FetchCharacterData.razor" />
-    <_ContentIncludedByDefault Remove="Pages\ClassRoles\ClassRoleForm.razor" />
-    <_ContentIncludedByDefault Remove="Pages\ClassRoles\CreateClassRole.razor" />
-    <_ContentIncludedByDefault Remove="Pages\ClassRoles\EditClassRole.razor" />
-    <_ContentIncludedByDefault Remove="Pages\ClassRoles\FetchClassRoleData.razor" />
-    <_ContentIncludedByDefault Remove="Pages\ClassRoles\RoleNavPage.razor" />
-    <_ContentIncludedByDefault Remove="Pages\DerivedStats\CreateDerivedStat.razor" />
-    <_ContentIncludedByDefault Remove="Pages\DerivedStats\DerivedStatForm.razor" />
-    <_ContentIncludedByDefault Remove="Pages\DerivedStats\EditDerivedStat.razor" />
-    <_ContentIncludedByDefault Remove="Pages\DerivedStats\FetchDerivedStatData.razor" />
-    <_ContentIncludedByDefault Remove="Pages\ElebrisClasses\ClassNavPage.razor" />
-    <_ContentIncludedByDefault Remove="Pages\ElebrisClasses\CreateCharacterClass.razor" />
-    <_ContentIncludedByDefault Remove="Pages\ElebrisClasses\EditCharacterClass.razor" />
-    <_ContentIncludedByDefault Remove="Pages\ElebrisClasses\ElebrisClassForm.razor" />
-    <_ContentIncludedByDefault Remove="Pages\ElebrisClasses\FetchCharacterClassData.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Equipment\CreateEquipment.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Equipment\EditEquipment.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Equipment\EquipmentForm.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Equipment\EquipmentNavPage.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Equipment\FetchEquipmentData.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Stats\CreateStat.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Stats\EditStat.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Stats\FetchStatData.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Stats\StatForm.razor" />
-    <_ContentIncludedByDefault Remove="Pages\Stats\StatNavPage.razor" />
-  </ItemGroup>
 
   <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Character\CharacterNavPage.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Character\CreateCharacter.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Character\EditCharacter.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Character\FetchCharacterData.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\ClassRoles\ClassRoleForm.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\ClassRoles\CreateClassRole.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\ClassRoles\EditClassRole.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\ClassRoles\FetchClassRoleData.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\ClassRoles\RoleNavPage.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\DerivedStats\CreateDerivedStat.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\DerivedStats\DerivedStatForm.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\DerivedStats\EditDerivedStat.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\DerivedStats\FetchDerivedStatData.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\ElebrisClasses\ClassNavPage.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\ElebrisClasses\CreateCharacterClass.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\ElebrisClasses\EditCharacterClass.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\ElebrisClasses\ElebrisClassForm.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\ElebrisClasses\FetchCharacterClassData.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Equipment\CreateEquipment.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Equipment\EditEquipment.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Equipment\EquipmentForm.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Equipment\EquipmentNavPage.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Equipment\FetchEquipmentData.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Stats\CreateStat.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Stats\EditStat.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Stats\FetchStatData.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Stats\StatForm.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Pages\Stats\StatNavPage.razor" />
+    <None Include="wwwroot\css\bootstrap\bootstrap.min.css.map" />
+    <None Include="wwwroot\css\open-iconic\FONT-LICENSE" />
+    <None Include="wwwroot\css\open-iconic\font\fonts\open-iconic.svg" />
+    <None Include="wwwroot\css\open-iconic\ICON-LICENSE" />
+    <None Include="wwwroot\css\open-iconic\README.md" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Elebris.Systems\Elebris.Database.Manager\Elebris.Database.Manager.csproj" />
   </ItemGroup>
+
 
 </Project>

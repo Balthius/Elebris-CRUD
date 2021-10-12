@@ -36,7 +36,8 @@
                     <td>@item.Id</td>
                     <td>@item.Name</td>
                     <td>@item.Description</td>
-                    <td>@ReturnEquipmentGroupName(@item.EquipmentGroup)</td>
+                    <td>@item.EquipmentGroupName</td>
+                    @*<td>@ReturnEquipmentGroupName(@item.EquipmentGroup)</td>*@
 
                     <td>
                         <a class="btn btn-success" href="/Equipment/Edit/@item.Id">Edit</a>
@@ -56,7 +57,7 @@
         {
             EquipmentGroups = cachedList.CachedEquipmentGroups;
             AllEquipment= await equipData.GetAllEquipmentModels();
-          
+
         }
 
         async Task Delete(int roleid)
@@ -68,13 +69,13 @@
                 await equipData.DeleteEquipment(roleid);
             }
         }
-        public string ReturnEquipmentGroupName(int id)
-        {
-            
-            var group = EquipmentGroups.FirstOrDefault(x => x.Id == id);
-            return group.Name;
+        //public string ReturnEquipmentGroupName(int id)
+        //{
+        //Added a string for equipment name directly to to the equipmentmodel
+        //    var group = EquipmentGroups.FirstOrDefault(x => x.Id == id);
+        //    return group.Name;
 
-        }
+        //}
 
 
     }

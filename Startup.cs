@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Elebris.Database.Manager;
 using Elebris.Database.Manager.Data;
+using Elebris.Database.Manager.DataAccess;
 
 namespace Elebris.Tooling
 {
@@ -37,6 +38,8 @@ namespace Elebris.Tooling
             services.AddSingleton<ICharacterData, CharacterData>();
             services.AddSingleton<IStatData, StatData>();
             services.AddSingleton<IUserData, UserData>();
+            services.AddSingleton<IEquipmentData, EquipmentData>();
+
             services.AddSingleton<IElebrisClassData, ElebrisClassData>();
             services.AddSingleton<ICachedLists, CachedLists>();
         }
