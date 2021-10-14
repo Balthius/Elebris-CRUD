@@ -34,9 +34,7 @@ namespace Elebris.Tooling
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<TokenProvider>();
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //https://stackoverflow.com/questions/51161729/addidentity-fails-invalidoperationexception-scheme-already-exists-identity
             services.AddSingleton(new ConnectionStringData
             {
                 ConnectionString = "ElebrisData"
