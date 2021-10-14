@@ -1,15 +1,18 @@
 ﻿@page "/Character/Create"
 @inject NavigationManager UriHelper
 @inject ICharacterData charaData
-
+@attribute [Authorize(Roles="admin, superuser")]
+@inject ICachedLists cachedList
 <h3>Create</h3>
-<CharacterForm ButtonText="Create Character" SelectedCharacter="@SelectedCharacter"
-      OnValidSubmit="@CreateNewCharacter" />
+<CharacterForm ButtonText="Create Character" SelectedCharacter="@SelectedCharacter" Races="@Races"
+               OnValidSubmit="@CreateNewCharacter" />
 @code {
     CharacterModel SelectedCharacter = new CharacterModel();
+    public List<CharacterRaceModel> Races { get; set; }
     async Task CreateNewCharacter()
     {
         int id = await charaData.CreateCharacter(SelectedCharacter);
+        Races = cachedList.CachedRaces;
         NavigateToFetchData();
     }
     public void NavigateToFetchData()

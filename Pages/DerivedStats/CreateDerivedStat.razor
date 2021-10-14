@@ -1,14 +1,14 @@
 ﻿@page "/DerivedStat/Create"
 @inject NavigationManager UriHelper
 @inject IStatData statData
-
+@attribute [Authorize(Roles="admin, superuser")]
 <h3>Create</h3>
 <DerivedStatForm ButtonText="Create DerivedStat" SelectedDerivedStat="@SelectedDerivedStat"
-      OnValidSubmit="@CreateNewDerivedStat" AllStats="@AllStats" />
+                 OnValidSubmit="@CreateNewDerivedStat" AllStats="@AllStats" />
 @code {
     DerivedStatModel SelectedDerivedStat = new DerivedStatModel();
-    public List<StatModel> AllStats { get; set; } = new List<StatModel>(); 
-    
+    public List<StatModel> AllStats { get; set; } = new List<StatModel>();
+
     protected async override Task OnParametersSetAsync()
     {
         AllStats = await statData.GetAllStats();

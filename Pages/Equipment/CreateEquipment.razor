@@ -1,7 +1,7 @@
 ﻿@page "/Equipment/Create"
 @inject NavigationManager UriHelper
 @inject IEquipmentData equipData
-
+@attribute [Authorize (Roles ="admin, superuser")]
 @inject ICachedLists cachedList
 
 <h3>Create</h3>
@@ -17,7 +17,7 @@
     }
     async Task CreateNewEquipment()
     {
-        
+
 
         int id = await equipData.CreateEquipment(SelectedEquipment);
         NavigateToFetchData();

@@ -1,0 +1,32 @@
+﻿@page "/CharacterRace/Edit/{raceId:int}"
+@inject ICharacterRaceData raceData
+@inject NavigationManager UriHelper
+@attribute [Authorize(Roles="admin, superuser")]
+<h3>Edit</h3>
+
+<CharacterRaceForm ButtonText="Update" SelectedRace="SelectedRace"
+                   OnValidSubmit="EditExistingRace" />
+
+
+@code {
+    [Parameter] public int raceId { get; set; }
+
+    CharacterRaceModel SelectedRace = new CharacterRaceModel();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        SelectedRace = await raceData.GetCharacterRaceByID(raceId);
+
+    }
+    public async Task EditExistingRace()
+    {
+        int id = await raceData.UpdateCharacterRace(SelectedRace);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/CharacterRace/FetchData");
+    }
+}
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-/*@

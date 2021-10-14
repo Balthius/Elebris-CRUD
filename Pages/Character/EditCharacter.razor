@@ -1,21 +1,23 @@
 ﻿@page "/Character/Edit/{characterId:int}"
 @inject ICharacterData charaData
 @inject NavigationManager UriHelper
+@attribute [Authorize(Roles="admin, superuser")]
+@inject ICachedLists cachedList
 <h3>Edit</h3>
 
-<CharacterForm ButtonText="Update" SelectedCharacter="SelectedCharacter"
-      OnValidSubmit="EditExistingCharacter" />
+<CharacterForm ButtonText="Update" SelectedCharacter="SelectedCharacter" Races="@Races"
+               OnValidSubmit="EditExistingCharacter" />
 
 
 @code {
     [Parameter] public int characterId { get; set; }
 
     CharacterModel SelectedCharacter = new CharacterModel();
-
+    public List<CharacterRaceModel> Races { get; set; }
     protected async override Task OnParametersSetAsync()
     {
-       SelectedCharacter = await charaData.GetCharacterByID(characterId);
-
+        SelectedCharacter = await charaData.GetCharacterByID(characterId);
+        Races = cachedList.CachedRaces;
     }
     public async Task EditExistingCharacter()
     {

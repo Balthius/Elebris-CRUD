@@ -1,10 +1,10 @@
 ﻿@page "/Stat/Create"
 @inject NavigationManager UriHelper
 @inject IStatData statData
-
+@attribute [Authorize(Roles="admin, superuser")]
 <h3>Create</h3>
 <StatForm ButtonText="Create Stat" SelectedStat="@SelectedStat"
-      OnValidSubmit="@CreateNewStat" AllStatGroups="@AllStatGroups" />
+          OnValidSubmit="@CreateNewStat" AllStatGroups="@AllStatGroups" />
 @code {
     StatModel SelectedStat = new StatModel();
     List<StatGroupModel> AllStatGroups = new List<StatGroupModel>();

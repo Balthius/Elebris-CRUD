@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 using Elebris.Database.Manager;
 using Elebris.Database.Manager.Data;
 using Elebris.Database.Manager.DataAccess;
+using Elebris.Tooling.Areas.Identity;
+using Microsoft.AspNetCore.Identity;
+using Elebris.Tooling.Data;
 
 namespace Elebris.Tooling
 {
@@ -29,7 +32,11 @@ namespace Elebris.Tooling
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddServerSideBlazor(); 
+            services.AddServerSideBlazor();
+            services.AddScoped<TokenProvider>();
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSingleton(new ConnectionStringData
             {
                 ConnectionString = "ElebrisData"
@@ -39,8 +46,10 @@ namespace Elebris.Tooling
             services.AddSingleton<IStatData, StatData>();
             services.AddSingleton<IUserData, UserData>();
             services.AddSingleton<IEquipmentData, EquipmentData>();
-
             services.AddSingleton<IElebrisClassData, ElebrisClassData>();
+            services.AddSingleton<ICharacterRaceData, CharacterRaceData>();
+
+
             services.AddSingleton<ICachedLists, CachedLists>();
         }
 
@@ -62,9 +71,13 @@ namespace Elebris.Tooling
             app.UseStaticFiles();
 
             app.UseRouting();
+            //Added for auth https://www.youtube.com/watch?v=Lp-0JtQbj84
+            app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages(); //Added for auth
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });

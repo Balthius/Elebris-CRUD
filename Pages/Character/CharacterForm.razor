@@ -52,6 +52,26 @@
         <label class="control-label">Attributes: @SelectedCharacter.CalculateAttributeTotal / @CharacterConfig.DEFAULT_MAX_TOTAL_VALUE </label>
         <ValidationMessage For="@(() => SelectedCharacter.ValidAttributeTotal)" class="text-danger" />
     </div>
+    @if (Races == null)
+    {
+        <h4> Could not find races</h4>
+    }
+    else
+    {
+
+        <div class="form-group">
+            <label class="control-label">Character Race</label>
+            <div>
+                <InputSelect @bind-Value="SelectedCharacter.RaceId" class="form-control">
+                    <option value="Select">(Choose)</option>
+                    @foreach (CharacterRaceModel race in Races)
+                        {
+                        <option value="@race.Id">@race.Name</option>
+                        }
+                </InputSelect>
+            </div>
+        </div>
+    }
 
     <button type="submit" class="btn btn-success">
         @ButtonText
@@ -62,6 +82,7 @@
     [Parameter] public CharacterModel SelectedCharacter { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public List<CharacterRaceModel> Races { get; set; }
 
 }
 

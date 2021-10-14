@@ -43,11 +43,15 @@ else
                     <td>@charaClass.Id</td>
                     <td>@charaClass.Name</td>
                     <td>@ReturnAttributeName(charaClass.GoverningAttribute)</td>
-                    <td>
-                        <a class="btn btn-success" href="/ElebrisClass/Edit/@charaClass.Id">Edit</a>
-                        <button class="btn btn-danger" @onclick="@(() => Delete(charaClass.Id))">Delete</button>
-                    </td>
-                </tr>
+                    <AuthorizeView Roles="admin, superuser">
+                        <Authorized>
+                            <td>
+                                <a class="btn btn-success" href="/ElebrisClass/Edit/@charaClass.Id">Edit</a>
+                                <button class="btn btn-danger" @onclick="@(() => Delete(charaClass.Id))">Delete</button>
+                            </td>
+                            </Authorized>
+                        </AuthorizeView>
+</tr>
             }
         </tbody>
     </table>

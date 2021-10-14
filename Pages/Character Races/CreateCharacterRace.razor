@@ -1,0 +1,19 @@
+﻿@page "/CharacterRace/Create"
+@inject NavigationManager UriHelper
+@inject ICharacterRaceData raceData
+@attribute [Authorize(Roles="admin, superuser")]
+<h3>Create</h3>
+<CharacterRaceForm ButtonText="Create Race" SelectedRace="@SelectedRace"
+                   OnValidSubmit="@CreateNewCharacterRace" />
+@code {
+    CharacterRaceModel SelectedRace = new CharacterRaceModel();
+    async Task CreateNewCharacterRace()
+    {
+        int id = await raceData.CreateCharacterRace(SelectedRace);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/CharacterRace/FetchData");
+    }
+}

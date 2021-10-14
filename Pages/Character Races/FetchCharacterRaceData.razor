@@ -1,0 +1,72 @@
+﻿@page "/CharacterRace/FetchData"
+
+@inject ICharacterRaceData raceData
+@inject IJSRuntime js
+<h3>Races</h3>
+
+<small>Add as many races as you wish.</small>
+<div class="form-group">
+    <a class="btn btn-success" href="characterrace/create"><i class="oi oi-plus"></i> Create New</a>
+</div>
+<br>
+@if (races == null)
+{
+    <text>Loading...</text>
+}
+else if (races.Count == 0)
+{
+    <text>No Records Found.</text>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CharacterRaceModel race in races)
+            {
+            <tr>
+                <td>@race.Id</td>
+                <td>@race.Name</td>
+                <td>@race.Description</td>
+                <AuthorizeView Roles="admin, superuser">
+                    <Authorized>
+                        <td>
+                            <a class="btn btn-success" href="/Characterrace/Edit/@race.Id">Edit</a>
+                            <button class="btn btn-danger" @onclick="@(() => Delete(race.Id))">Delete</button>
+                        </td>
+                        </Authorized>
+                    </AuthorizeView>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+
+
+    private List<CharacterRaceModel> races { get; set; } = new List<CharacterRaceModel>();
+    protected override async Task OnInitializedAsync()
+    {
+        races = await raceData.GetAllCharacterRaceModels();
+
+    }
+    [Authorize(Roles = "Administrator")]
+    async Task Delete(int charaid)
+    {
+        var race = races.First(x => x.Id == charaid);
+        if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {race.Name}'s ({race.Id}) Record?"))
+        {
+
+            await raceData.DeleteCharacterRace(charaid);
+        }
+    }
+
+
+}

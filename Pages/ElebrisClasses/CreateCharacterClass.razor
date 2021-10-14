@@ -2,10 +2,10 @@
 @inject NavigationManager UriHelper
 @inject IElebrisClassData charaClassData
 @inject ICachedLists cachedList
-
+@attribute [Authorize(Roles="admin, superuser")]
 <h3>Create</h3>
 <ElebrisClassForm ButtonText="Create Character Class" SelectedClass="@SelectedClass" AttributeStats="@AttributeStats"
-               OnValidSubmit="@CreateNewCharacter" />
+                  OnValidSubmit="@CreateNewCharacter" />
 @code {
     ElebrisClassModel SelectedClass = new ElebrisClassModel();
     List<StatModel> AttributeStats = new List<StatModel>();
@@ -15,7 +15,7 @@
     }
     async Task CreateNewCharacter()
     {
-       
+
         int id = await charaClassData.CreateElebrisClass(SelectedClass);
         NavigateToFetchData();
     }

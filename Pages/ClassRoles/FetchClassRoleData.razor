@@ -35,12 +35,15 @@ else
                     <td>@item.Id</td>
                     <td>@item.Name</td>
                     <td>@item.Description</td>
-                   
-                    <td>
-                        <a class="btn btn-success" href="/ClassRole/Edit/@item.Id">Edit</a>
-                        <button class="btn btn-danger" @onclick="@(() => Delete(item.Id))">Delete</button>
-                    </td>
-                </tr>
+                    <AuthorizeView Roles="admin, superuser">
+                        <Authorized>
+                            <td>
+                                <a class="btn btn-success" href="/ClassRole/Edit/@item.Id">Edit</a>
+                                <button class="btn btn-danger" @onclick="@(() => Delete(item.Id))">Delete</button>
+                            </td>
+                            </Authorized>
+                        </AuthorizeView>
+</tr>
             }
         </tbody>
     </table>
@@ -52,10 +55,10 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-      ClassRoles = await classData.GetAllClassRoles();
-       
-    }
+        ClassRoles = await classData.GetAllClassRoles();
 
+    }
+    [Authorize(Roles = "Administrator")]
     async Task Delete(int roleid)
     {
         var role = ClassRoles.First(x => x.Id == roleid);
