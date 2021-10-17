@@ -1,0 +1,15 @@
+﻿@page "/AccountNavOptions"
+@inject NavigationManager UriHelper
+<h3>Character Page</h3>
+<button @onclick=@ViewCharacterList>View Accounts</button>
+@code {
+
+
+    void ViewCharacterList()
+    {
+        UriHelper.NavigateTo("/Character/FetchData");
+    }
+   
+
+
+}  

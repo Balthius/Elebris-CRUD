@@ -39,14 +39,19 @@
                     <td>@item.Description</td>
                     <td>@item.EquipmentGroupName</td>
                     @*<td>@ReturnEquipmentGroupName(@item.EquipmentGroup)</td>*@
-                    <AuthorizeView Roles="admin, superuser">
-                        <Authorized>
-                            <td>
-                                <a class="btn btn-success" href="/Equipment/Edit/@item.Id">Edit</a>
+
+                    <td>
+                        <a class="btn btn-success" href="/Equipment/Edit/@item.Id">Edit</a>
+                        <AuthorizeView Roles="Admin, superuser">
+                            <Authorized>
                                 <button class="btn btn-danger" @onclick="@(() => Delete(item.Id))">Delete</button>
-                            </td>
                             </Authorized>
+                            <NotAuthorized>
+                                <button>Delete Disabled</button>
+                            </NotAuthorized>
                         </AuthorizeView>
+                    </td>
+
                 </tr>
                 }
             </tbody>

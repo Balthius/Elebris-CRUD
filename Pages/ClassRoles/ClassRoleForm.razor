@@ -15,13 +15,14 @@
         <InputTextArea @bind-Value="SelectedRole.Description" class="form-control" />
         <ValidationMessage For="@(() => SelectedRole.Description)" class="text-danger" />
     </div>
-    
-    
 
-    <button type="submit" class="btn btn-success">
-        @ButtonText
-    </button>
-
+    <AuthorizeView Roles="admin, superuser" Context="authContext">
+        <Authorized>
+            <button type="submit" class="btn btn-success">
+                @ButtonText
+            </button>
+        </Authorized>
+     </AuthorizeView>
 
 </EditForm>
 @code {

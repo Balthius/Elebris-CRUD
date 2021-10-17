@@ -1,5 +1,6 @@
-﻿@page "/Character/FetchData"
+﻿@page "/Account/FetchData"
 
+@attribute [Authorize(Roles = "Admin, SuperUser")]
 @inject ICharacterData charaData
 @inject IJSRuntime js
 
@@ -15,17 +16,17 @@
         You Cannot Add new Characters
     </NotAuthorized>
 </AuthorizeView>
-    <br>
-    @if (characters == null)
-    {
+<br>
+@if (characters == null)
+{
     <text>Loading...</text>
-    }
-    else if (characters.Count == 0)
-    {
+}
+else if (characters.Count == 0)
+{
     <text>No Records Found.</text>
-    }
-    else
-    {
+}
+else
+{
     <table class="table table-striped">
         <thead>
             <tr>
@@ -37,14 +38,14 @@
         </thead>
         <tbody>
             @foreach (CharacterModel character in characters)
-                {
+            {
             <tr>
                 <td>@character.Id</td>
                 <td>@character.FirstName</td>
                 <td>@character.LastName</td>
-                
+
                 <td>
-                    <a class="btn btn-success" href="/Character/Edit/@character.Id">Edit</a>
+                    <a class="btn btn-success" href="/Account/Edit/@character.Id">Edit</a>
                     <AuthorizeView Roles="Admin, superuser">
                         <Authorized>
                             <button class="btn btn-danger" @onclick="@(() => Delete(character.Id))">Delete</button>
@@ -57,9 +58,10 @@
                         </Authorizing>
                     </AuthorizeView>
                 </td>
-               
+
+
             </tr>
-                }
+            }
         </tbody>
     </table>
 
@@ -74,7 +76,7 @@
         characters = await charaData.GetAllCharacterModels();
 
     }
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Admin")]
     async Task Delete(int charaid)
     {
         var character = characters.First(x => x.Id == charaid);

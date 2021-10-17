@@ -40,14 +40,22 @@ else
                 <td>@ReturnStatName(@item.ParentStatId)</td>
                 <td>@ReturnStatName(@item.TargetStatId)</td>
                 <td>@item.ScaleFromParent</td>
-                <AuthorizeView Roles="admin, superuser">
-                    <Authorized>
-                        <td>
-                            <a class="btn btn-success" href="/DerivedStat/Edit/@item.Id">Edit</a>
+
+                <td>
+                    <a class="btn btn-success" href="/DerivedStat/Edit/@item.Id">Edit</a>
+                    <AuthorizeView Roles="Admin, superuser">
+                        <Authorized>
                             <button class="btn btn-danger" @onclick="@(() => Delete(item.Id))">Delete</button>
-                        </td>
                         </Authorized>
+                        <NotAuthorized>
+                            <button>Delete Disabled</button>
+                        </NotAuthorized>
+                        <Authorizing>
+                            <h1>Authentication in Progress</h1>
+                        </Authorizing>
                     </AuthorizeView>
+                </td>
+
             </tr>
             }
         </tbody>

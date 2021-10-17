@@ -20,6 +20,7 @@ namespace Elebris.Tooling.Areas.Identity
                         context.Configuration.GetConnectionString("ElebrisToolingContextConnection")));
 
                 services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>() //added
                     .AddEntityFrameworkStores<ElebrisToolingContext>();
             });
         }

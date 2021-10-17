@@ -1,7 +1,6 @@
 ﻿@page "/ClassRole/Create"
 @inject NavigationManager UriHelper
 @inject IElebrisClassData classData
-@attribute [Authorize(Roles="admin, superuser")]
 <h3>Create</h3>
 <ClassRoleForm ButtonText="Create" SelectedRole="@SelectedRole"
                OnValidSubmit="@CreateNewRole" />

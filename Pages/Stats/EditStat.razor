@@ -1,7 +1,7 @@
 ﻿@page "/Stat/Edit/{statId:int}"
 @inject IStatData statData
 @inject NavigationManager UriHelper
-@attribute [Authorize(Roles="admin, superuser")]
+@attribute [Authorize(Roles = "Admin, SuperUser")]
 <h3>Edit</h3>
 
 <StatForm ButtonText="Update" SelectedStat="@SelectedStat"

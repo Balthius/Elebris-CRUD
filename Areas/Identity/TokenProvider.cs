@@ -7,7 +7,7 @@ namespace Elebris.Tooling.Areas.Identity
 {
     public class TokenProvider
     {
-        public string XsrfToken { get; set; }
+        public string XsrfToken { get; set; } //can also be called accesstoken
         public string RefreshToken { get; set; }
     }
 }

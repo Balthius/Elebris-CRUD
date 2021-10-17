@@ -2,7 +2,6 @@
 @inject IElebrisClassData classData
 @inject ICachedLists cachedList
 @inject NavigationManager UriHelper
-@attribute [Authorize(Roles="admin, superuser")]
 <h3>Edit</h3>
 
 <ElebrisClassForm ButtonText="Update" SelectedClass="@SelectedClass" AttributeStats="@AttributeStats"

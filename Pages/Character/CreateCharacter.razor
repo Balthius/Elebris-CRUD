@@ -1,7 +1,6 @@
 ﻿@page "/Character/Create"
 @inject NavigationManager UriHelper
 @inject ICharacterData charaData
-@attribute [Authorize(Roles="admin, superuser")]
 @inject ICachedLists cachedList
 <h3>Create</h3>
 <CharacterForm ButtonText="Create Character" SelectedCharacter="@SelectedCharacter" Races="@Races"

@@ -1,0 +1,53 @@
+﻿
+<!--<h3>Form</h3>
+<EditForm Model="@SelectedAccount" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary Model="@SelectedAccount" />
+
+
+    <div class="form-group">
+        <label class="control-label">First Name</label>
+        <InputText @bind-Value="SelectedCharacter.FirstName" class="form-control" />
+        <ValidationMessage For="@(() => SelectedCharacter.FirstName)" class="text-danger" />
+
+    </div>-->
+    
+    @*@if (Roles == null)
+    {
+        <h4> Could not find roles</h4>
+    }
+    else
+    {
+
+        <div class="form-group">
+            <label class="control-label">Character Race</label>
+            <div>
+                <InputSelect @bind-Value="SelectedCharacter.RaceId" class="form-control">
+                    <option value="Select">(Choose)</option>
+                    @foreach (CharacterRaceModel race in Races)
+                        {
+                        <option value="@race.Id">@race.Name</option>
+                        }
+                </InputSelect>
+            </div>
+        </div>
+    }*@
+
+    <!--<button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+
+</EditForm>-->
+@code {
+    //[Parameter] public CharacterModel SelectedAccount { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    //[Parameter] public List<> Roles { get; set; }
+
+}
+
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-core/*@
+
+
+@*https://www.syncfusion.com/blogs/post/how-to-create-a-dynamic-form-builder-in-blazor.aspx*@

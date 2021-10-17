@@ -1,7 +1,6 @@
 ﻿@page "/CharacterRace/Create"
 @inject NavigationManager UriHelper
 @inject ICharacterRaceData raceData
-@attribute [Authorize(Roles="admin, superuser")]
 <h3>Create</h3>
 <CharacterRaceForm ButtonText="Create Race" SelectedRace="@SelectedRace"
                    OnValidSubmit="@CreateNewCharacterRace" />

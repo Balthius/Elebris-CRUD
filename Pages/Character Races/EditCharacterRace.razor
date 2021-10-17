@@ -1,7 +1,6 @@
 ﻿@page "/CharacterRace/Edit/{raceId:int}"
 @inject ICharacterRaceData raceData
 @inject NavigationManager UriHelper
-@attribute [Authorize(Roles="admin, superuser")]
 <h3>Edit</h3>
 
 <CharacterRaceForm ButtonText="Update" SelectedRace="SelectedRace"

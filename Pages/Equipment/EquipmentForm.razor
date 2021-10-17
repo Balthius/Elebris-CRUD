@@ -16,26 +16,30 @@
             <ValidationMessage For="@(() => SelectedEquipment.Description)" class="text-danger" />
         </div>
 
-            <div class="form-group">
-                <label class="control-label">Equipment Group</label>
-                <div>
-                    <InputSelect @bind-Value="SelectedEquipment.EquipmentGroup" class="form-control">
-                        <option value="Select">(Choose)</option>
-                        @foreach (EquipmentGroupModel group in EquipmentGroups)
-                        {
-                            <option value="@group.Id">@group.Name</option>
-                        }
-                    </InputSelect>
-                </div>
+        <div class="form-group">
+            <label class="control-label">Equipment Group</label>
+            <div>
+                <InputSelect @bind-Value="SelectedEquipment.EquipmentGroup" class="form-control">
+                    <option value="Select">(Choose)</option>
+                    @foreach (EquipmentGroupModel group in EquipmentGroups)
+                    {
+                        <option value="@group.Id">@group.Name</option>
+                    }
+                </InputSelect>
             </div>
-        
-
-            <button type="submit" class="btn btn-success">
-                @ButtonText
-            </button>
+        </div>
 
 
-        </EditForm>
+        <AuthorizeView Roles="admin, superuser" Context="authContext">
+            <Authorized>
+                <button type="submit" class="btn btn-success">
+                    @ButtonText
+                </button>
+            </Authorized>
+        </AuthorizeView>
+
+
+    </EditForm>
 
     @code {
         [Parameter] public EquipmentModel SelectedEquipment { get; set; }

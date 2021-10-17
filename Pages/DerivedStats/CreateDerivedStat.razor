@@ -1,7 +1,6 @@
 ﻿@page "/DerivedStat/Create"
 @inject NavigationManager UriHelper
 @inject IStatData statData
-@attribute [Authorize(Roles="admin, superuser")]
 <h3>Create</h3>
 <DerivedStatForm ButtonText="Create DerivedStat" SelectedDerivedStat="@SelectedDerivedStat"
                  OnValidSubmit="@CreateNewDerivedStat" AllStats="@AllStats" />

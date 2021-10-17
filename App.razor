@@ -8,6 +8,14 @@
         <NotFound>
             <LayoutView Layout="@typeof(MainLayout)">
                 <p>Sorry, there's nothing at this address.</p>
+                <AuthorizeView Roles="Admin, superuser">
+                    <Authorized>
+                        <p> You have Editing Priviliges</p>
+                    </Authorized>
+                    <NotAuthorized>
+                        <p>You do Not have Editing Priviliges</p>
+                    </NotAuthorized>
+                </AuthorizeView>
             </LayoutView>
         </NotFound>
     </Router>

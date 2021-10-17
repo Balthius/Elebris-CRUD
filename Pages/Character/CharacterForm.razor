@@ -73,9 +73,13 @@
         </div>
     }
 
-    <button type="submit" class="btn btn-success">
-        @ButtonText
-    </button>
+    <AuthorizeView Roles="admin, superuser" Context="authContext">
+        <Authorized>
+            <button type="submit" class="btn btn-success">
+                @ButtonText
+            </button>
+        </Authorized>
+    </AuthorizeView>
 
 </EditForm>
 @code {

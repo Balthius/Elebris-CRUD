@@ -47,7 +47,9 @@ namespace Elebris.Tooling
             services.AddSingleton<IElebrisClassData, ElebrisClassData>();
             services.AddSingleton<ICharacterRaceData, CharacterRaceData>();
 
-
+            //Singleton: Per Application
+            //Scoped: Per User, can be used interchangeably in a WASM app.
+            //Transient: Per Page
             services.AddSingleton<ICachedLists, CachedLists>();
         }
 
@@ -70,8 +72,8 @@ namespace Elebris.Tooling
 
             app.UseRouting();
             //Added for auth https://www.youtube.com/watch?v=Lp-0JtQbj84
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

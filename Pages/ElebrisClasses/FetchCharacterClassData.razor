@@ -39,19 +39,27 @@ else
         <tbody>
             @foreach (ElebrisClassModel charaClass in characlasses)
             {
-                <tr>
-                    <td>@charaClass.Id</td>
-                    <td>@charaClass.Name</td>
-                    <td>@ReturnAttributeName(charaClass.GoverningAttribute)</td>
-                    <AuthorizeView Roles="admin, superuser">
+            <tr>
+                <td>@charaClass.Id</td>
+                <td>@charaClass.Name</td>
+                <td>@ReturnAttributeName(charaClass.GoverningAttribute)</td>
+
+                <td>
+                    <a class="btn btn-success" href="/ElebrisClass/Edit/@charaClass.Id">Edit</a>
+                    <AuthorizeView Roles="Admin, superuser">
                         <Authorized>
-                            <td>
-                                <a class="btn btn-success" href="/ElebrisClass/Edit/@charaClass.Id">Edit</a>
-                                <button class="btn btn-danger" @onclick="@(() => Delete(charaClass.Id))">Delete</button>
-                            </td>
-                            </Authorized>
-                        </AuthorizeView>
-</tr>
+                            <button class="btn btn-danger" @onclick="@(() => Delete(charaClass.Id))">Delete</button>
+                        </Authorized>
+                        <NotAuthorized>
+                            <button>Delete Disabled</button>
+                        </NotAuthorized>
+                        <Authorizing>
+                            <h1>Authentication in Progress</h1>
+                        </Authorizing>
+                    </AuthorizeView>
+                </td>
+
+            </tr>
             }
         </tbody>
     </table>

@@ -1,10 +1,11 @@
-﻿@page "/Character/Edit/{characterId:int}"
+﻿@page "/Account/Edit/{accountId:int}"
 @inject ICharacterData charaData
 @inject NavigationManager UriHelper
+@attribute [Authorize(Roles = "Admin, SuperUser")]
 @inject ICachedLists cachedList
 <h3>Edit</h3>
 
-<CharacterForm ButtonText="Update" SelectedCharacter="SelectedCharacter" Races="@Races"
+<AccountForm ButtonText="Update" SelectedCharacter="SelectedCharacter" Races="@Races"
                OnValidSubmit="EditExistingCharacter" />
 
 
