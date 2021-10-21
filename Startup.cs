@@ -31,13 +31,16 @@ namespace Elebris.Tooling
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
-            services.AddServerSideBlazor();
+            services.AddRazorPages(); 
+            services.AddServerSideBlazor().AddCircuitOptions(o =>
+            {
+                    o.DetailedErrors = true;
+            });
             services.AddScoped<TokenProvider>();
             //https://stackoverflow.com/questions/51161729/addidentity-fails-invalidoperationexception-scheme-already-exists-identity
             services.AddSingleton(new ConnectionStringData
             {
-                ConnectionString = "ElebrisData"
+                ConnectionString = "AzureElebrisData"
             });
             services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
             services.AddSingleton<ICharacterData, CharacterData>();
