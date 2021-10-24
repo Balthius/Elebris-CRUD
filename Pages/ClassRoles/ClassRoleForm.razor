@@ -16,19 +16,28 @@
         <ValidationMessage For="@(() => SelectedRole.Description)" class="text-danger" />
     </div>
 
-    <AuthorizeView Roles="admin, superuser" Context="authContext">
+    <AuthorizeView Roles="Admin, superuser" Context="authContext">
         <Authorized>
             <button type="submit" class="btn btn-success">
                 @ButtonText
             </button>
         </Authorized>
-     </AuthorizeView>
+        <NotAuthorized>
+         <h3>Disabled</h3>
+        </NotAuthorized>
+        <Authorizing>
+            Checking Role
+        </Authorizing>
+    </AuthorizeView>
 
 </EditForm>
 @code {
     [Parameter] public ClassRoleModel SelectedRole { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
 
 }
 

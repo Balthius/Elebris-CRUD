@@ -2,8 +2,10 @@
 @inject NavigationManager UriHelper
 @inject IStatData statData
 <h3>Create</h3>
-<StatForm ButtonText="Create Stat" SelectedStat="@SelectedStat"
-          OnValidSubmit="@CreateNewStat" AllStatGroups="@AllStatGroups" />
+    <StatForm ButtonText="Create Stat" SelectedStat="@SelectedStat"
+              OnValidSubmit="@CreateNewStat" AllStatGroups="@AllStatGroups" />
+
+
 @code {
     StatModel SelectedStat = new StatModel();
     List<StatGroupModel> AllStatGroups = new List<StatGroupModel>();

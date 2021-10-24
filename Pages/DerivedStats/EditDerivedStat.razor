@@ -11,7 +11,7 @@
     [Parameter] public int DerivedStatId { get; set; }
 
     DerivedStatModel SelectedDerivedStat = new DerivedStatModel();
-    public List<StatModel> AllStats { get; set; } = new List<StatModel>();
+    List<StatModel> AllStats { get; set; } = new List<StatModel>();
 
     protected async override Task OnParametersSetAsync()
     {

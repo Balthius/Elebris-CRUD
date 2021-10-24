@@ -1,87 +1,91 @@
 ﻿
 <h3>Form</h3>
-<EditForm Model="@SelectedCharacter" OnValidSubmit="OnValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary Model="@SelectedCharacter" />
+@if (Races != null)
+{<EditForm Model="@SelectedCharacter" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary Model="@SelectedCharacter" />
 
-
-    <div class="form-group">
-        <label class="control-label">First Name</label>
-        <InputText @bind-Value="SelectedCharacter.FirstName" class="form-control" />
-        <ValidationMessage For="@(() => SelectedCharacter.FirstName)" class="text-danger" />
-
-    </div>
-    <div class="form-group">
-        <label class="control-label">Last Name</label>
-        <InputText @bind-Value="SelectedCharacter.LastName" class="form-control" />
-        <ValidationMessage For="@(() => SelectedCharacter.LastName)" class="text-danger" />
-
-    </div>
-    attributes
-    <div class="form-group">
-        <label class="control-label">Strength</label>
-        <InputNumber @bind-Value="SelectedCharacter.Strength" class="form-control" />
-        <ValidationMessage For="@(() => SelectedCharacter.Strength)" class="text-danger" />
-    </div>
-    <div class="form-group">
-        <label class="control-label">Constitution</label>
-        <InputNumber @bind-Value="SelectedCharacter.Constitution" class="form-control" />
-        <ValidationMessage For="@(() => SelectedCharacter.Constitution)" class="text-danger" />
-    </div>
-    <div class="form-group">
-        <label class="control-label">Agility</label>
-        <InputNumber @bind-Value="SelectedCharacter.Agility" class="form-control" />
-        <ValidationMessage For="@(() => SelectedCharacter.Agility)" class="text-danger" />
-    </div>
-    <div class="form-group">
-        <label class="control-label">Expertise</label>
-        <InputNumber @bind-Value="SelectedCharacter.Expertise" class="form-control" />
-        <ValidationMessage For="@(() => SelectedCharacter.Expertise)" class="text-danger" />
-    </div>
-    <div class="form-group">
-        <label class="control-label">Wisdom</label>
-        <InputNumber @bind-Value="SelectedCharacter.Wisdom" class="form-control" />
-        <ValidationMessage For="@(() => SelectedCharacter.Wisdom)" class="text-danger" />
-    </div>
-    <div class="form-group">
-        <label class="control-label">Intelligence</label>
-        <InputNumber @bind-Value="SelectedCharacter.Intelligence" class="form-control" />
-        <ValidationMessage For="@(() => SelectedCharacter.Intelligence)" class="text-danger" />
-    </div>
-    <div class="form-group">
-        <label class="control-label">Attributes: @SelectedCharacter.CalculateAttributeTotal / @CharacterConfig.DEFAULT_MAX_TOTAL_VALUE </label>
-        <ValidationMessage For="@(() => SelectedCharacter.ValidAttributeTotal)" class="text-danger" />
-    </div>
-    @if (Races == null)
-    {
-        <h4> Could not find races</h4>
-    }
-    else
-    {
 
         <div class="form-group">
-            <label class="control-label">Character Race</label>
-            <div>
-                <InputSelect @bind-Value="SelectedCharacter.RaceId" class="form-control">
-                    <option value="Select">(Choose)</option>
-                    @foreach (CharacterRaceModel race in Races)
-                        {
-                        <option value="@race.Id">@race.Name</option>
-                        }
-                </InputSelect>
-            </div>
+            <label class="control-label">First Name</label>
+            <InputText @bind-Value="SelectedCharacter.FirstName" class="form-control" />
+            <ValidationMessage For="@(() => SelectedCharacter.FirstName)" class="text-danger" />
+
         </div>
-    }
+        <div class="form-group">
+            <label class="control-label">Last Name</label>
+            <InputText @bind-Value="SelectedCharacter.LastName" class="form-control" />
+            <ValidationMessage For="@(() => SelectedCharacter.LastName)" class="text-danger" />
 
-    <AuthorizeView Roles="admin, superuser" Context="authContext">
-        <Authorized>
-            <button type="submit" class="btn btn-success">
-                @ButtonText
-            </button>
-        </Authorized>
-    </AuthorizeView>
+        </div>
+        attributes
+        <div class="form-group">
+            <label class="control-label">Strength</label>
+            <InputNumber @bind-Value="SelectedCharacter.Strength" class="form-control" />
+            <ValidationMessage For="@(() => SelectedCharacter.Strength)" class="text-danger" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">Constitution</label>
+            <InputNumber @bind-Value="SelectedCharacter.Constitution" class="form-control" />
+            <ValidationMessage For="@(() => SelectedCharacter.Constitution)" class="text-danger" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">Agility</label>
+            <InputNumber @bind-Value="SelectedCharacter.Agility" class="form-control" />
+            <ValidationMessage For="@(() => SelectedCharacter.Agility)" class="text-danger" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">Expertise</label>
+            <InputNumber @bind-Value="SelectedCharacter.Expertise" class="form-control" />
+            <ValidationMessage For="@(() => SelectedCharacter.Expertise)" class="text-danger" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">Wisdom</label>
+            <InputNumber @bind-Value="SelectedCharacter.Wisdom" class="form-control" />
+            <ValidationMessage For="@(() => SelectedCharacter.Wisdom)" class="text-danger" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">Intelligence</label>
+            <InputNumber @bind-Value="SelectedCharacter.Intelligence" class="form-control" />
+            <ValidationMessage For="@(() => SelectedCharacter.Intelligence)" class="text-danger" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">Attributes: @SelectedCharacter.CalculateAttributeTotal / @CharacterConfig.DEFAULT_MAX_TOTAL_VALUE </label>
+            <ValidationMessage For="@(() => SelectedCharacter.ValidAttributeTotal)" class="text-danger" />
+        </div>
+       
+            <div class="form-group">
+                <label class="control-label">Character Race</label>
+                <div>
+                    <InputSelect @bind-Value="SelectedCharacter.RaceId" class="form-control">
+                        <option value="Select">(Choose)</option>
+                        @foreach (CharacterRaceModel race in Races)
+                                {
+                            <option value="@race.Id">@race.Name</option>
+                                }
+                    </InputSelect>
+                </div>
+            </div>
+        
 
-</EditForm>
+        <AuthorizeView Roles="Admin, superuser" Context="authContext">
+            <Authorized>
+                <button type="submit" class="btn btn-success">
+                    @ButtonText
+                </button>
+            </Authorized>
+            <NotAuthorized>
+             <h3>Disabled</h3>
+            </NotAuthorized>
+        </AuthorizeView>
+
+    </EditForm>
+}
+else
+{
+    <h4>Loading</h4>
+}
+
 @code {
     [Parameter] public CharacterModel SelectedCharacter { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";

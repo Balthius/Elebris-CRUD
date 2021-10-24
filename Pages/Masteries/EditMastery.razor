@@ -1,0 +1,37 @@
+﻿@page "/Mastery/Edit/{masteryId:int}"
+@inject NavigationManager UriHelper
+@inject IMasteryData masteryData
+@inject ICachedLists cachedList
+<h3>Edit</h3>
+
+<MasteryForm ButtonText="Update" SelectedMastery="@SelectedMastery" MasteryGroups="@MasteryGroups"
+               OnValidSubmit="@EditExistingMastery" />
+
+
+@code {
+    [Parameter] public int masteryId { get; set; }
+
+    MasteryModel SelectedMastery = new MasteryModel();
+
+    public List<MasteryGroupModel> MasteryGroups { get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+        MasteryGroups = cachedList.CachedMasteryGroups;
+    }
+
+    protected async override Task OnParametersSetAsync()
+    {
+        SelectedMastery = await masteryData.GetMasteryByID(masteryId);
+    }
+    public async Task EditExistingMastery()
+    {
+        int id = await masteryData.UpdateMastery(SelectedMastery);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/Mastery/FetchData");
+    }
+}
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-/*@

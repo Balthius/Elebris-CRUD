@@ -1,63 +1,79 @@
 ﻿
 <h3>Form</h3>
-<EditForm Model="@SelectedDerivedStat" OnValidSubmit="OnValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary Model="@SelectedDerivedStat" />
+@if (AllStats != null)
+{<EditForm Model="@SelectedDerivedStat" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary Model="@SelectedDerivedStat" />
 
-    <div class="form-group">
-        <label class="control-label">DerivedStat Name</label>
-        <InputText @bind-Value="SelectedDerivedStat.Name" class="form-control" />
-        <ValidationMessage For="@(() => SelectedDerivedStat.Name)" class="text-danger" />
-    </div>
-    <div class="form-group">
-        <label class="control-label">Parent Id</label>
-        <div>
-            <InputSelect @bind-Value="SelectedDerivedStat.ParentStatId" class="form-control">
-                <option value="">(Choose)</option>
-                @foreach (StatModel stat in AllStats)
-                {
-                    <option value="@stat.Id">@stat.StatName</option>
-                }
-            </InputSelect>
+        <div class="form-group">
+            <label class="control-label">DerivedStat Name</label>
+            <InputText @bind-Value="SelectedDerivedStat.Name" class="form-control" />
+            <ValidationMessage For="@(() => SelectedDerivedStat.Name)" class="text-danger" />
         </div>
-    </div>
-    @*The parent and target need to have their Id's replaced with strings*@
-    <div class="form-group">
-        <label class="control-label">Target Id</label>
-        <div>
-            <InputSelect @bind-Value="SelectedDerivedStat.TargetStatId" class="form-control">
-                <option value="">(Choose)</option>
-                @foreach (StatModel stat in AllStats)
-                {
-                    <option value="@stat.Id">@stat.StatName</option>
-                }
+        <div class="form-group">
+            <label class="control-label">Parent Id</label>
+            <div>
+                <InputSelect @bind-Value="SelectedDerivedStat.ParentStatId" class="form-control">
+                    <option value="">(Choose)</option>
+                    @foreach (StatModel stat in AllStats)
+                        {
+                        <option value="@stat.Id">@stat.StatName</option>
+                        }
+                </InputSelect>
+            </div>
+        </div>
+        @*The parent and target need to have their Id's replaced with strings*@
+        <div class="form-group">
+            <label class="control-label">Target Id</label>
+            <div>
+                <InputSelect @bind-Value="SelectedDerivedStat.TargetStatId" class="form-control">
+                    <option value="">(Choose)</option>
+                    @foreach (StatModel stat in AllStats)
+                        {
+                        <option value="@stat.Id">@stat.StatName</option>
+                        }
 
-            </InputSelect>
+                </InputSelect>
+            </div>
+
         </div>
 
-    </div>
+        <div class="form-group">
+            <label class="control-label">Scale From Parent</label>
+            <InputNumber @bind-Value="SelectedDerivedStat.ScaleFromParent" class="form-control" />
+            <ValidationMessage For="@(() => SelectedDerivedStat.ScaleFromParent)" class="text-danger" />
+        </div>
 
-    <div class="form-group">
-        <label class="control-label">Scale From Parent</label>
-        <InputNumber @bind-Value="SelectedDerivedStat.ScaleFromParent" class="form-control" />
-        <ValidationMessage For="@(() => SelectedDerivedStat.ScaleFromParent)" class="text-danger" />
-    </div>
+        <AuthorizeView Roles="Admin, superuser" Context="authContext">
+            <Authorized>
+                <button type="submit" class="btn btn-success">
+                    @ButtonText
+                </button>
+            </Authorized>
+            <NotAuthorized>
+             <h3>Disabled</h3>
+            </NotAuthorized>
+            <Authorizing>
+                Checking Role
+            </Authorizing>
+        </AuthorizeView>
 
-    <AuthorizeView Roles="admin, superuser" Context="authContext">
-        <Authorized>
-            <button type="submit" class="btn btn-success">
-                @ButtonText
-            </button>
-        </Authorized>
-    </AuthorizeView>
 
+    </EditForm>
+}
+else
+{
+    <h4>Loading</h4>
+}
 
-</EditForm>
 @code {
     [Parameter] public DerivedStatModel SelectedDerivedStat { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
     [Parameter] public List<StatModel> AllStats { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
 
 }
 

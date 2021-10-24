@@ -17,7 +17,7 @@ namespace Elebris.Tooling.Areas.Identity
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<ElebrisToolingContext>(options =>
                     options.UseSqlServer(
-                        context.Configuration.GetConnectionString("AzureUserData")));
+                        context.Configuration.GetConnectionString("ElebrisToolingContextConnection")));
 
                 services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>() //added

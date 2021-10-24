@@ -1,0 +1,73 @@
+﻿
+<h3>Form</h3>
+@if (MasteryGroups != null)
+{
+    <EditForm Model="@SelectedMastery" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary Model="@SelectedMastery" />
+
+
+        <div class="form-group">
+            <label class="control-label">Mastery Name</label>
+            <InputText @bind-Value="SelectedMastery.Name" class="form-control" />
+            <ValidationMessage For="@(() => SelectedMastery.Name)" class="text-danger" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">Description</label>
+            <InputTextArea @bind-Value="SelectedMastery.Description" class="form-control" />
+            <ValidationMessage For="@(() => SelectedMastery.Description)" class="text-danger" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Mastery Group</label>
+            <div>
+                <InputSelect @bind-Value="SelectedMastery.MasteryGroup" class="form-control">
+                    <option value="Select">(Choose)</option>
+                    @foreach (MasteryGroupModel group in MasteryGroups)
+                        {
+                        <option value="@group.Id">@group.Name</option>
+                        }
+                </InputSelect>
+            </div>
+        </div>
+
+
+        <AuthorizeView Roles="Admin, superuser" Context="authContext">
+            <Authorized>
+                <button type="submit" class="btn btn-success">
+                    @ButtonText
+                </button>
+            </Authorized>
+            <NotAuthorized>
+             <h3>Disabled</h3>
+            </NotAuthorized>
+            <Authorizing>
+                Checking Role
+            </Authorizing>
+        </AuthorizeView>
+
+
+    </EditForm>
+}
+else
+{
+    <h4>Loading</h4>
+}
+
+
+@code {
+    [Parameter] public MasteryModel SelectedMastery { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public List<MasteryGroupModel> MasteryGroups { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+}
+
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-/*@
+
+
+@*https://www.syncfusion.com/blogs/post/how-to-create-a-dynamic-form-builder-in-blazor.aspx*@

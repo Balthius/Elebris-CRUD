@@ -1,0 +1,12 @@
+﻿@page "/MasteryNavOptions"
+@inject NavigationManager UriHelper
+
+<h3>Mastery Page</h3>
+<button @onclick=@ViewMasteryList>View Mastery</button>
+@code {
+    void ViewMasteryList()
+    {
+        UriHelper.NavigateTo("/Mastery/FetchData");
+    }
+  
+}  

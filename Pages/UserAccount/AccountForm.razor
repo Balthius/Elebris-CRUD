@@ -44,6 +44,9 @@
     [Parameter] public EventCallback OnValidSubmit { get; set; }
     //[Parameter] public List<> Roles { get; set; }
 
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+
 }
 
 

@@ -1,19 +1,19 @@
-﻿@page "/Equipment/FetchData"
-@inject IEquipmentData equipData
+﻿@page "/Mastery/FetchData"
+@inject IMasteryData masteryData
 @inject ICachedLists cachedList
 @inject IJSRuntime js
-<h3>Equipment</h3>
+<h3>Mastery</h3>
 
-    <small>Add as many equipable items as you wish.</small>
+    <small>Add as many masteries as you wish.</small>
     <div class="form-group">
-        <a class="btn btn-success" href="equipment/create"><i class="oi oi-plus"></i> Create New</a>
+        <a class="btn btn-success" href="mastery/create"><i class="oi oi-plus"></i> Create New</a>
     </div>
     <br>
-    @if (AllEquipment == null)
+    @if (AllMastery == null)
     {
         <text>Loading...</text>
     }
-    else if (AllEquipment.Count == 0)
+    else if (AllMastery.Count == 0)
     {
         <text>No Records Found.</text>
     }
@@ -31,23 +31,23 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (EquipmentModel item in AllEquipment)
+                @foreach (MasteryModel item in AllMastery)
                 {
                 <tr>
                     <td>@item.Id</td>
                     <td>@item.Name</td>
                     <td>@item.Description</td>
-                    <td>@item.EquipmentGroupName</td>
-                    @*<td>@ReturnEquipmentGroupName(@item.EquipmentGroup)</td>*@
+                    <td>@item.MasteryGroupName</td>
+                    @*<td>@ReturnMasteryGroupName(@item.MasteryGroup)</td>*@
 
                     <td>
-                        <a class="btn btn-success" href="/Equipment/Edit/@item.Id">Edit</a>
+                        <a class="btn btn-success" href="/Mastery/Edit/@item.Id">Edit</a>
                         <AuthorizeView Roles="Admin, superuser">
                             <Authorized>
                                 <button class="btn btn-danger" @onclick="@(() => Delete(item.Id))">Delete</button>
                             </Authorized>
                             <NotAuthorized>
-                                <button>Delete Disabled</button>
+                             <h3>Disabled</h3>
                             </NotAuthorized>
                         </AuthorizeView>
                     </td>
@@ -60,28 +60,28 @@
     @code {
 
 
-        private List<EquipmentModel> AllEquipment { get; set; } = new List<EquipmentModel>();
-        private List<EquipmentGroupModel> EquipmentGroups { get; set; } = new List<EquipmentGroupModel>();
+        private List<MasteryModel> AllMastery { get; set; } = new List<MasteryModel>();
+        private List<MasteryGroupModel> MasteryGroups { get; set; } = new List<MasteryGroupModel>();
         protected override async Task OnInitializedAsync()
         {
-            EquipmentGroups = cachedList.CachedEquipmentGroups;
-            AllEquipment= await equipData.GetAllEquipmentModels();
+            MasteryGroups = cachedList.CachedMasteryGroups;
+            AllMastery= await masteryData.GetAllMasteryModels();
 
         }
         [Authorize(Roles = "Administrator")]
         async Task Delete(int roleid)
         {
-            var equip = AllEquipment.First(x => x.Id == roleid);
-            if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {equip.Name}'s ({equip.Id}) Record?"))
+            var mastery = AllMastery.First(x => x.Id == roleid);
+            if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {mastery.Name}'s ({mastery.Id}) Record?"))
             {
 
-                await equipData.DeleteEquipment(roleid);
+                await masteryData.DeleteMastery(roleid);
             }
         }
-        //public string ReturnEquipmentGroupName(int id)
+        //public string ReturnMasteryGroupName(int id)
         //{
         //Added a string for equipment name directly to to the equipmentmodel
-        //    var group = EquipmentGroups.FirstOrDefault(x => x.Id == id);
+        //    var group = MasteryGroups.FirstOrDefault(x => x.Id == id);
         //    return group.Name;
 
         //}

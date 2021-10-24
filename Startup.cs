@@ -40,13 +40,13 @@ namespace Elebris.Tooling
             //https://stackoverflow.com/questions/51161729/addidentity-fails-invalidoperationexception-scheme-already-exists-identity
             services.AddSingleton(new ConnectionStringData
             {
-                ConnectionString = "AzureElebrisData"
+                ConnectionString = "ElebrisData"
             });
             services.AddSingleton<ISqlDataAccess, SqlDataAccess>();
             services.AddSingleton<ICharacterData, CharacterData>();
             services.AddSingleton<IStatData, StatData>();
             services.AddSingleton<IUserData, UserData>();
-            services.AddSingleton<IEquipmentData, EquipmentData>();
+            services.AddSingleton<IMasteryData, MasteryData>();
             services.AddSingleton<IElebrisClassData, ElebrisClassData>();
             services.AddSingleton<ICharacterRaceData, CharacterRaceData>();
 

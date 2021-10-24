@@ -1,47 +1,63 @@
 ﻿
 <h3>Form</h3>
-<EditForm Model="@SelectedClass" OnValidSubmit="OnValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary Model="@SelectedClass" />
+@if (AttributeStats != null)
+{<EditForm Model="@SelectedClass" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary Model="@SelectedClass" />
 
-    <div class="form-group">
-        <label class="control-label">Name</label>
-        <InputText @bind-Value="SelectedClass.Name" class="form-control" />
-        <ValidationMessage For="@(() => SelectedClass.Name)" class="text-danger" />
-    </div>
-
-    <div class="form-group">
-        <label class="control-label">Governing Attribute</label>
-        <div>
-            <InputSelect @bind-Value="SelectedClass.GoverningAttribute" class="form-control">
-                <option value="">(Choose)</option>
-                @foreach (StatModel stat in AttributeStats)
-                {
-                    <option value="@stat.Id">@stat.StatName</option>
-                }
-            </InputSelect>
+        <div class="form-group">
+            <label class="control-label">Name</label>
+            <InputText @bind-Value="SelectedClass.Name" class="form-control" />
+            <ValidationMessage For="@(() => SelectedClass.Name)" class="text-danger" />
         </div>
-    </div>
 
-    <div class="form-group">
-        <label class="control-label">Description</label>
-        <InputText @bind-Value="SelectedClass.Description" class="form-control" />
-        <ValidationMessage For="@(() => SelectedClass.Description)" class="text-danger" />
-    </div>
+        <div class="form-group">
+            <label class="control-label">Governing Attribute</label>
+            <div>
+                <InputSelect @bind-Value="SelectedClass.GoverningAttribute" class="form-control">
+                    <option value="">(Choose)</option>
+                    @foreach (StatModel stat in AttributeStats)
+                        {
+                        <option value="@stat.Id">@stat.StatName</option>
+                        }
+                </InputSelect>
+            </div>
+        </div>
 
-    <AuthorizeView Roles="admin, superuser" Context="authContext">
-        <Authorized>
-            <button type="submit" class="btn btn-success">
-                @ButtonText
-            </button>
-        </Authorized>
-    </AuthorizeView>
-</EditForm>
+        <div class="form-group">
+            <label class="control-label">Description</label>
+            <InputText @bind-Value="SelectedClass.Description" class="form-control" />
+            <ValidationMessage For="@(() => SelectedClass.Description)" class="text-danger" />
+        </div>
+
+        <AuthorizeView Roles="Admin, superuser" Context="authContext">
+            <Authorized>
+                <button type="submit" class="btn btn-success">
+                    @ButtonText
+                </button>
+            </Authorized>
+            <NotAuthorized>
+             <h3>Disabled</h3>
+            </NotAuthorized>
+            <Authorizing>
+                Checking Role
+            </Authorizing>
+        </AuthorizeView>
+    </EditForm>
+}
+else
+{
+    <h4>Loading</h4>
+}
+
 @code {
     [Parameter] public ElebrisClassModel SelectedClass { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
     [Parameter] public List<StatModel> AttributeStats { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
 
 }
 

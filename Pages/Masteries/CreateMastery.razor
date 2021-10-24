@@ -1,0 +1,26 @@
+﻿@page "/Mastery/Create"
+@inject NavigationManager UriHelper
+@inject IMasteryData masteryData
+@inject ICachedLists cachedList
+
+<h3>Create</h3>
+<MasteryForm ButtonText="Create Mastery" SelectedMastery="@SelectedMastery" MasteryGroups="@MasteryGroups"
+               OnValidSubmit="@CreateNewMastery" />
+@code {
+    MasteryModel SelectedMastery = new MasteryModel();
+
+    public List<MasteryGroupModel> MasteryGroups { get; set; } = new List<MasteryGroupModel>();
+    protected async override Task OnInitializedAsync()
+    {
+        MasteryGroups = cachedList.CachedMasteryGroups;
+    }
+    async Task CreateNewMastery()
+    {
+        int id = await masteryData.CreateMastery(SelectedMastery);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/Mastery/FetchData");
+    }
+}

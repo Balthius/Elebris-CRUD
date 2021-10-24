@@ -7,7 +7,11 @@
         </Found>
         <NotFound>
             <LayoutView Layout="@typeof(MainLayout)">
-                <p>Sorry, there's nothing at this address.</p>
+                <p>Welcome to my CRUD Application. This is a side project I used to work on my SQL, C# and Blazor,
+                as well as game design. There is role-based authentication for CRUD most operations.
+                This is made using Blazor Server so I chose not to have a standalone API. 
+                The App, and database(MSSQL) are both hosted in Azure.  </p>
+                <p>You can find the repository at https://github.com/Balthius/Elebris-CRUD </p>
                 <AuthorizeView Roles="Admin, superuser">
                     <Authorized>
                         <p> You have Editing Priviliges</p>

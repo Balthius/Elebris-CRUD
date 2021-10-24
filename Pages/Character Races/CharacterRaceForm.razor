@@ -18,18 +18,27 @@
 
     </div>
 
-    <AuthorizeView Roles="admin, superuser" Context="authContext">
+    <AuthorizeView Roles="Admin, superuser" Context="authContext">
         <Authorized>
             <button type="submit" class="btn btn-success">
                 @ButtonText
             </button>
         </Authorized>
+        <NotAuthorized>
+         <h3>Disabled</h3>
+        </NotAuthorized>
+        <Authorizing>
+            Checking Role
+        </Authorizing>
     </AuthorizeView>
 </EditForm>
 @code {
     [Parameter] public CharacterRaceModel SelectedRace { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
 
 }
 
