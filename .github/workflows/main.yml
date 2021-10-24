@@ -1,0 +1,52 @@
+name: "Build and Publish Tooling Website"
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+env: 
+  PUBLISH_PATH: './publish'
+  AZURE_WEB_APP: 'ElebrisTooling20211016185849'
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1
+    - name: where are we
+      run: pwd
+      
+    - name: list some key files
+      run: ls -lrt
+
+      
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Restore Tools for WebCompiler
+      run: dotnet tool restore
+  
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      
+
+    - name: Publish
+      run: dotnet publish --no-build --configuration Release -o '{{env.PUBLISH_PATH}}'
+      
+    
+    - name: Display structure of downloaded files
+      run: ls -R
+      
+    - name: Azure WebApp
+      uses: Azure/webapps-deploy@v2
+      with: 
+        app-name: '${{env.AZURE_WEB_APP}}'
+        publish-profile: '${{secrets.SOLUNA_LANDING_PAGE_PUBLISH_PROFILE}}'
+        package: '{{env.PUBLISH_PATH}}'
+       
