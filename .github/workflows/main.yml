@@ -18,7 +18,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1
+        dotnet-version: 5.0
     - name: where are we
       run: pwd
       
@@ -47,6 +47,6 @@ jobs:
       uses: Azure/webapps-deploy@v2
       with: 
         app-name: '${{env.AZURE_WEB_APP}}'
-        publish-profile: '${{secrets.SOLUNA_LANDING_TOOLING_PUBLISH_PROFILE}}'
+        publish-profile: '${{secrets.SOLUNA_TOOLING_PUBLISH_PROFILE}}'
         package: '{{env.PUBLISH_PATH}}'
        
