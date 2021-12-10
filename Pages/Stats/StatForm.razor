@@ -1,5 +1,5 @@
 ﻿
-<h3>Form</h3>
+<h3>Stat Form</h3>
 
     <EditForm Model="@SelectedStat" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator />
@@ -17,17 +17,28 @@
             <ValidationMessage For="@(() => SelectedStat.BeginningValue)" class="text-danger" />
         </div>
 
-        
-       @*   
-       //create a multiselect checkbox for each stat tag.    
-       @if (SelectedStat.Tags != null)
-             {
-                @foreach (var tag in SelectedStat.Tags)
-                {
-                   //tick option to true
-                }
-             }*@
+        <div class="form-group">
+               <label for="control-label">Choose up to 5 Stat Tags</label>
 
+               <InputSelectNumber @bind-Value="SelectedStat.StatTagIds" class ="form-control">
+                   @foreach (var tag in AllStatTags)
+                  {
+                      <option value=@tag.Id>@tag.Name</option>
+                  }
+               </InputSelectNumber>
+         </div>
+   
+      
+      @*
+          //https://www.youtube.com/watch?v=qhdyYpEpr_k
+          //create a multiselect checkbox for each stat tag.    
+       //https://getbootstrap.com/docs/5.1/forms/checks-radios/ (toggle buttons)
+       //https://www.w3schools.com/tags/att_select_multiple.asp
+       //can I find one that lets me make ovular tags? and have them switch from grey to green for selected?
+       //    /---------------\
+       //   |    Tag text     |          
+       //    \_______________/*@
+   
 
         <AuthorizeView Roles="Admin, superuser" Context="authContext">
             <Authorized>
@@ -45,15 +56,15 @@
 
     </EditForm>
 
-    @code {
-        [Parameter] public StatModel SelectedStat { get; set; }
-        [Parameter] public string ButtonText { get; set; } = "Save";
-        [Parameter] public EventCallback OnValidSubmit { get; set; }
-        
-        [Parameter] public List<StatTagModel> AllStatTags { get; set; }
+@code {
+    [Parameter] public StatModel SelectedStat { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
 
-        [CascadingParameter]
-        private Task<AuthenticationState> authenticationStateTask { get; set; }
+    [Parameter] public List<StatTagModel> AllStatTags { get; set; }
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
 
     }
 

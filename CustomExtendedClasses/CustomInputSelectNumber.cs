@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components.Forms;
+using System.Collections.Generic;
 
 namespace Elebris.Tooling.Blazor.Server.AnnotationAttributes
 {
-    public class InputSelectNumber<T> : InputSelect<T>
+    public class CustomInputSelectNumber<T> : InputSelect<T>
     {
         protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
         {
@@ -21,6 +22,8 @@ namespace Elebris.Tooling.Blazor.Server.AnnotationAttributes
                     return false;
                 }
             }
+           
+        
             else
             {
                 return base.TryParseValueFromString(value, out result, out validationErrorMessage);
