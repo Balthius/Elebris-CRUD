@@ -1,23 +1,30 @@
 ﻿@page "/Stat/Create"
 @inject NavigationManager UriHelper
 @inject IStatData statData
+
+@inject IStatTagData statTagData
 <h3>Create</h3>
     <StatForm ButtonText="Create Stat" SelectedStat="@SelectedStat"
-              OnValidSubmit="@CreateNewStat" />
+              OnValidSubmit="@CreateNewStat" AllStatTags="@AllStatTags"/>
 
 
 @code {
     StatModel SelectedStat = new StatModel();
-
+    
+    List<StatTagModel> AllStatTags { get; set; } = new List<StatTagModel>();
     protected async override Task OnParametersSetAsync()
     {
+        
+        AllStatTags = await statTagData.GetAllStatTags();
     }
+
     async Task CreateNewStat()
     {
 
         int id = await statData.CreateStat(SelectedStat);
         NavigateToFetchData();
     }
+
     public void NavigateToFetchData()
     {
         UriHelper.NavigateTo("/Stat/FetchData");

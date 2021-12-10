@@ -16,17 +16,15 @@
             <InputNumber @bind-Value="SelectedStat.BeginningValue" class="form-control" />
             <ValidationMessage For="@(() => SelectedStat.BeginningValue)" class="text-danger" />
         </div>
-       @*      @if (SelectedStat.Tags != null)
+
+        
+       @*   
+       //create a multiselect checkbox for each stat tag.    
+       @if (SelectedStat.Tags != null)
              {
                 @foreach (var tag in SelectedStat.Tags)
                 {
-                    <div>
-                        <span class="my-mr-10">
-                            @tag.Name
-                        </span>
-                        <button type="button" aria-label="close" class="my-icon-close" @onclick="() => RemoveTag(tag.Name)">
-                        </button>
-                    </div>
+                   //tick option to true
                 }
              }*@
 
@@ -52,7 +50,7 @@
         [Parameter] public string ButtonText { get; set; } = "Save";
         [Parameter] public EventCallback OnValidSubmit { get; set; }
         
-        [Parameter] public List<StatTagModel> StatTags { get; set; } = new List<StatTagModel>();
+        [Parameter] public List<StatTagModel> AllStatTags { get; set; }
 
         [CascadingParameter]
         private Task<AuthenticationState> authenticationStateTask { get; set; }

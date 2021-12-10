@@ -1,11 +1,12 @@
 ﻿@page "/Stat/Edit/{statId:int}"
 @inject IStatData statData
+@inject IStatTagData statTagData
 @inject NavigationManager UriHelper
 @attribute [Authorize(Roles = "Admin, SuperUser")]
 <h3>Edit</h3>
 
 <StatForm ButtonText="Update" SelectedStat="@SelectedStat"
-          OnValidSubmit="@EditExistingStat" />
+          OnValidSubmit="@EditExistingStat" AllStatTags="@AllStatTags" />
 
 
 @code {
@@ -13,10 +14,12 @@
 
     StatModel SelectedStat = new StatModel();
 
-
+     List<StatTagModel> AllStatTags { get; set; } = new List<StatTagModel>();
     protected async override Task OnParametersSetAsync()
     {
         SelectedStat = await statData.GetStatByID(statId);
+        
+        AllStatTags = await statTagData.GetAllStatTags();
     }
     public async Task EditExistingStat()
     {
