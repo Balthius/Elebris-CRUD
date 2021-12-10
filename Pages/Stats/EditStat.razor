@@ -5,7 +5,7 @@
 <h3>Edit</h3>
 
 <StatForm ButtonText="Update" SelectedStat="@SelectedStat"
-          OnValidSubmit="@EditExistingStat" AllStatGroups="@AllStatGroups" />
+          OnValidSubmit="@EditExistingStat" />
 
 
 @code {
@@ -14,11 +14,9 @@
     StatModel SelectedStat = new StatModel();
 
 
-    List<StatGroupModel> AllStatGroups = new List<StatGroupModel>();
     protected async override Task OnParametersSetAsync()
     {
         SelectedStat = await statData.GetStatByID(statId);
-        AllStatGroups = await statData.GetAllStatGroups();
     }
     public async Task EditExistingStat()
     {

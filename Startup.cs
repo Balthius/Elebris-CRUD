@@ -34,6 +34,7 @@ namespace Elebris.Tooling
             services.AddRazorPages(); 
             services.AddServerSideBlazor().AddCircuitOptions(o =>
             {
+                //set up this and a few other services for development only? 
                     o.DetailedErrors = true;
             });
             services.AddScoped<TokenProvider>();
@@ -49,12 +50,15 @@ namespace Elebris.Tooling
             services.AddSingleton<IMasteryData, MasteryData>();
             services.AddSingleton<IElebrisClassData, ElebrisClassData>();
             services.AddSingleton<ICharacterRaceData, CharacterRaceData>();
+            services.AddSingleton<IStatTagData, StatTagData>();
 
             //Singleton: Per Application
             //Scoped: Per User, can be used interchangeably in a WASM app.
             //Transient: Per Page
             services.AddSingleton<ICachedLists, CachedLists>();
-        }
+
+            
+            }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

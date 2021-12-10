@@ -1,0 +1,32 @@
+﻿@page "/StatTag/Edit/{tagId:int}"
+@inject IStatTagData statTagData
+@inject NavigationManager UriHelper
+@attribute [Authorize(Roles = "Admin, SuperUser")]
+<h3>Edit</h3>
+
+<StatTagForm ButtonText="Update" SelectedStatTag="@SelectedStatTag"
+          OnValidSubmit="@EditExistingStatTag" />
+
+
+@code {
+    [Parameter] public int tagId { get; set; }
+
+    StatTagModel SelectedStatTag = new StatTagModel();
+
+
+    protected async override Task OnParametersSetAsync()
+    {
+        SelectedStatTag = await statTagData.GetStatTagByID(tagId);
+    }
+    public async Task EditExistingStatTag()
+    {
+        int id = await statTagData.UpdateStatTag(SelectedStatTag);
+        NavigateToFetchData();
+    }
+    public void NavigateToFetchData()
+    {
+        UriHelper.NavigateTo("/StatTag/FetchData");
+    }
+}
+
+@*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-/*@

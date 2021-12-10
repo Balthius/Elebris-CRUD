@@ -9,27 +9,17 @@
     <a class="btn btn-success" href="stat/create"><i class="oi oi-plus"></i> Create New</a>
 </div>
 <br>
-@if (selectedStats == null)
+@if (allStats == null)
 {
     <text>Loading...</text>
 }
-else if (selectedStats.Count == 0)
+else if (allStats.Count == 0)
 {
     <text>No Records Found.</text>
 }
 else
 {
-<div class="form-group">
-    <label class="control-label">Stat Group</label>
-    <select class="form-control" @onchange="@StatGroupChanged" title="Stat Group">
-        <option value="">(Choose Group)</option>
-        @foreach (var group in statgroups)
-        {
-            <option value="@group.Id">@group.Id @group.GroupName</option>
-        }
-    </select>
-</div>
-   
+
     <table class="table table-striped">
         <thead>
             <tr>
@@ -41,13 +31,13 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (StatModel item in selectedStats)
+            @foreach (StatModel item in allStats)
             {
             <tr>
                 <td>@item.Id</td>
                 <td>@item.StatName</td>
                 <td>@item.BeginningValue</td>
-                <td>@ReturnStatGroupName(@item.StatGroup)</td>
+                
 
                 <td>
                     <a class="btn btn-success" href="/Stat/Edit/@item.Id">Edit</a>
@@ -72,36 +62,18 @@ else
 @code {
 
 
-    private List<StatModel> selectedStats { get; set; } = new List<StatModel>();
     private List<StatModel> allStats { get; set; } = new List<StatModel>();
-    private List<StatGroupModel> statgroups { get; set; } = new List<StatGroupModel>();
 
     protected override async Task OnInitializedAsync()
     {
-        selectedStats = allStats = await statData.GetAllStats();
+        allStats = await statData.GetAllStats();
        
-        statgroups = await statData.GetAllStatGroups();
     }
 
-    public void StatGroupChanged(ChangeEventArgs e)
-    {
-        if(string.IsNullOrWhiteSpace(e.Value.ToString()) == false)
-        {
-            selectedStats = new List<StatModel>();
-            //Need to catch "select"
-            int id = int.Parse(e.Value.ToString());
-            foreach (var item in allStats)
-            {
-                if (item.StatGroup == id)
-                {
-                    selectedStats.Add(item);
-                }
-            }
-        }
-    }
+    
     async Task Delete(int statid)
     {
-        var stat = selectedStats.First(x => x.Id == statid);
+        var stat = allStats.First(x => x.Id == statid);
         if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {stat.StatName}'s ({stat.Id}) Record?"))
         {
 
@@ -109,18 +81,5 @@ else
         }
     }
 
-    private string ReturnStatGroupName(int id)
-    {
-        if(id > 0)
-        {
-            var stat = statgroups.FirstOrDefault(x => x.Id == id);
-            return stat.GroupName;
-        }
-        else
-        {
-            return "Not Set";
-        }
-
-    }
 
 }

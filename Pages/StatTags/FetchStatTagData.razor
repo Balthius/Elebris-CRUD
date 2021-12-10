@@ -1,0 +1,74 @@
+﻿@page "/StatTag/FetchData"
+
+@inject IStatTagData statTagData
+@inject IJSRuntime js
+
+@inject NavigationManager UriHelper
+<h3>Stats</h3>
+
+<small>Add as many stat tags as you wish.</small>
+<div class="form-group">
+    <a class="btn btn-success" href="stattag/create"><i class="oi oi-plus"></i> Create New</a>
+</div>
+<br>
+@if (allStatTags == null)
+{
+    <text>Loading...</text>
+}
+else if (allStatTags.Count == 0)
+{
+    <text>No Records Found.</text>
+}
+else
+{
+    //https://docs.microsoft.com/en-us/mobile-blazor-bindings/ui/grid-layout
+<section class="statTag-section" id=" = StatTags">
+    @foreach (StatTagModel item in allStatTags)
+    {
+    <div class="grid-item">
+        <h6>@item.Id</h6>
+        <h4>@item.Name</h4>
+        <div>
+            <a class="btn btn-success" href="/StatTag/Edit/@item.Id">Edit</a>
+            <AuthorizeView Roles="Admin, superuser">
+                <Authorized>
+                    <button class="btn btn-danger" @onclick="@(() => Delete(item.Id))">Delete</button>
+                </Authorized>
+                <NotAuthorized>
+                    <button>Delete Disabled</button>
+                </NotAuthorized>
+                <Authorizing>
+                    <h1>Authentication in Progress</h1>
+                </Authorizing>
+            </AuthorizeView>
+        </div>
+    </div>
+    }
+</Section>
+        }
+        @code {
+
+
+    private List<StatTagModel> allStatTags { get; set; } = new List<StatTagModel>();
+
+        protected override async Task OnInitializedAsync()
+        {
+            allStatTags = await statTagData.GetAllStatTags();
+
+        }
+
+
+        async Task Delete(int tagId)
+        {
+            var statTag = allStatTags.First(x => x.Id == tagId);
+            if (await js.InvokeAsync<bool>("confirm", $"Do you want to delete {statTag.Name}'s ({statTag.Id}) Record?"))
+            {
+
+                await statTagData.DeleteStatTag(tagId);
+
+                UriHelper.NavigateTo("/StatTag/FetchData", true);
+            }
+        }
+
+
+        }

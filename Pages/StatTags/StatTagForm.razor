@@ -1,0 +1,48 @@
+﻿
+<h3>Form</h3>
+
+    <EditForm Model="@SelectedStatTag" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary Model="@SelectedStatTag" />
+
+
+        <div class="form-group">
+            <label class="control-label">Stat Tag Name</label>
+            <InputText @bind-Value="SelectedStatTag.Name" class="form-control" />
+            <ValidationMessage For="@(() => SelectedStatTag.Name)" class="text-danger" />
+        </div>
+      
+       
+
+
+        <AuthorizeView Roles="Admin, superuser" Context="authContext">
+            <Authorized>
+                <button type="submit" class="btn btn-success">
+                    @ButtonText
+                </button>
+            </Authorized>
+            <NotAuthorized>
+             <h3>Disabled</h3>
+            </NotAuthorized>
+            <Authorizing>
+                Checking Role
+            </Authorizing>
+        </AuthorizeView>
+
+    </EditForm>
+
+    @code {
+        [Parameter] public StatTagModel SelectedStatTag { get; set; }
+        [Parameter] public string ButtonText { get; set; } = "Save";
+        [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+        [CascadingParameter]
+        private Task<AuthenticationState> authenticationStateTask { get; set; }
+
+    }
+
+
+    @*https://codewithmukesh.com/blog/blazor-crud-with-entity-framework-core/*@
+
+
+    @*https://www.syncfusion.com/blogs/post/how-to-create-a-dynamic-form-builder-in-blazor.aspx*@

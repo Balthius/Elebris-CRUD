@@ -14,11 +14,25 @@
     }
     async Task CreateNewDerivedStat()
     {
-        int id = await statData.CreateDerivedStat(SelectedDerivedStat);
+       
+        await statData.CreateDerivedStat(SelectedDerivedStat);
         NavigateToFetchData();
     }
     public void NavigateToFetchData()
     {
         UriHelper.NavigateTo("/DerivedStat/FetchData");
+    }
+
+    private string ReturnStatName(int id)
+    {
+        if (id > 0)
+        {
+            var stat = AllStats.FirstOrDefault(x => x.Id == id);
+            return stat.StatName;
+        }
+        else
+        {
+            return "Null";
+        }
     }
 }

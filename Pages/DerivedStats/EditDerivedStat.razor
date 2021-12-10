@@ -20,7 +20,7 @@
     }
     public async Task EditExistingDerivedStat()
     {
-        int id = await statData.UpdateDerivedStat(SelectedDerivedStat);
+        await statData.UpdateDerivedStat(SelectedDerivedStat);
         NavigateToFetchData();
     }
     public void NavigateToFetchData()
