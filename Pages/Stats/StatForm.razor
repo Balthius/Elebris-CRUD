@@ -20,12 +20,12 @@
         <div class="form-group">
                <label for="control-label">Choose up to 5 Stat Tags</label>
 
-               <InputSelectNumber @bind-Value="SelectedStat.StatTagIds" class ="form-control">
+               <select @onchange="SelectedTagsChanged" multiple class ="form-control">
                    @foreach (var tag in AllStatTags)
                   {
                       <option value=@tag.Id>@tag.Name</option>
                   }
-               </InputSelectNumber>
+               </select>
          </div>
    
       
@@ -66,6 +66,12 @@
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
 
+    private void SelectedTagsChanged (ChangeEventArgs e)
+    {
+        string[] tagArray =  (string[])e.Value;
+        int[] tagInts = Array.ConvertAll(tagArray, s => int.Parse(s));
+        SelectedStat.StatTagIds = tagInts.ToList();
+    }
     }
 
 

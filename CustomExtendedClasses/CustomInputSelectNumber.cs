@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace Elebris.Tooling.Blazor.Server.AnnotationAttributes
 {
-    public class CustomInputSelectNumber<T> : InputSelect<T>
+    public class CustomInputSelect<T> : InputSelect<T>
     {
         protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
         {
-            if (typeof(T) == typeof(int))
-            {
+           if (typeof(T) == typeof(int))
+           {
                 if (int.TryParse(value, out var resultInt))
                 {
                     result = (T)(object)resultInt;
@@ -21,7 +21,7 @@ namespace Elebris.Tooling.Blazor.Server.AnnotationAttributes
                     validationErrorMessage = "The chosen value is not a valid number.";
                     return false;
                 }
-            }
+           }
            
         
             else
